@@ -1,7 +1,7 @@
 // // 连接数据库
 // const mongoose = require("mongoose");
 // // mongoose连接方式     connetion，还有connect()和createConnection()
-// mongoose.connect("mongodb://localhost.yqn");
+// mongoose.connect("mongodb://localhost:27017");
 // let db = mongoose.connection;
 // // 防止Mongoose: mpromise 错误
 // mongoose.Promise = global.Promise;
