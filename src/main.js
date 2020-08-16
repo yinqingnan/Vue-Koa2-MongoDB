@@ -20,7 +20,7 @@ Vue.config.productionTip = false;
 //注册全局钩子用来拦截登陆导航
 router.beforeEach(function(to, from, next) {
   console.log(!localStorage.getItem("token"));
-  if (localStorage.getItem("token")) {
+  if (!localStorage.getItem("token")) {
     if (to.path !== "/login") {
       return next("/login");
     }

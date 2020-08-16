@@ -105,9 +105,9 @@ export default {
           // let user = md5(values.userName);
           let psd = values.password;
           let user = values.userName;
-          console.log(psd, user);
+          // console.log(psd, user);
           this.$api.login({ password: psd, userName: user }).then(res => {
-            console.log(res);
+            // console.log(res);
             // this.$router.push({ path: "/home" });
           });
         }

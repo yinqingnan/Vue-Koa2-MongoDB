@@ -2,15 +2,16 @@
  * 请求拦截、相应拦截、错误统一处理
  */
 import axios from "axios";
-import QS from "qs";
+// import QS from "qs";
 import { Message } from "ant-design-vue";
 import "ant-design-vue/lib/message/style";
 
-import Vue from "vue";
-let vm = new Vue();
+// import Vue from "vue";
+// let vm = new Vue();
+
 // import { Toast } from "vant";
 // import store from "../store/index";
-import router from "../router/index";
+// import router from "../router/index";
 
 // export const http = "http://192.168.10.64:8081"; //陈炜
 //export const http ="https://easy-mock.com/mock" //测试地址
