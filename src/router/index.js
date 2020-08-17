@@ -18,7 +18,8 @@ const routes = [
     name: "Login",
     component: () => {
       // return import("../view/test.vue");
-      return import("../view/login/index.vue");
+      // return import("../view/login/index.vue");
+      return import("../view/login/login.vue");
     }
   },
   {

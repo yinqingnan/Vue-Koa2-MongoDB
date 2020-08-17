@@ -1,10 +1,14 @@
-// 增token的函数
 const jwt = require("jsonwebtoken");
-module.exports = function(user_id) {
-  const token = jwt.sign({ user_id: user_id }, "Validitytoken", {
-    expiresIn: "60s"
-  });
+const serect = "my_token"; //密钥，不能丢
+module.exports = userinfo => {
+  //创建token并导出
+  const token = jwt.sign(
+    {
+      user: userinfo.user,
+      id: userinfo.id
+    },
+    serect, //秘钥
+    { expiresIn: 1000 * 60 * 60 * 10 } // 设置token的过期时间
+  );
   return token;
 };
-
-// 创建token时，我们把用户名作为JWT Validitytoken,token过期时间设置为60s。意思是登录之后，60s内刷新页面不需要再重新登录
