@@ -19,7 +19,14 @@ const routes = [
     component: () => {
       // return import("../view/test.vue");
       // return import("../view/login/index.vue");
-      return import("../view/login/login.vue");
+      return import("../view/user/login.vue");
+    }
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => {
+      return import("../view/user/register.vue");
     }
   },
   {

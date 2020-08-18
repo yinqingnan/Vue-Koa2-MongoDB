@@ -1,10 +1,9 @@
 <template>
   <div>
-    <!-- <div id="world"></div> -->
-    <BGT v-if="show" ref="child" />
+    <BGT ref="child" />
     <div class="box">
       <div class="Popup">
-        <h1><a @click.prevent="aClick">登陆系统</a></h1>
+        <h1><a @click.prevent="aClick('登陆')">登陆系统</a></h1>
         <a-form
           id="components-form-demo-normal-login"
           :form="form"
@@ -72,22 +71,29 @@
           <a-form-item class="bottom1">
             <div class="bottom">
               <h6>
-                即可注册!
+                <a href="" @click.prevent="aClick('注册')">注册!</a>
               </h6>
               <h6 class="login-form-forgot">
-                忘记密码
+                <a href="" @click.prevent="aClick('忘记密码')">忘记密码</a>
               </h6>
             </div>
           </a-form-item>
         </a-form>
+
+        <!-- 重置密码框 -->
+        <resetpassword ref="resetpsd"></resetpassword>
       </div>
     </div>
   </div>
 </template>
 <script>
-import BGT from "../../components/3DBG/index";
+import BGT from "@/components/3DBG/index";
+import resetpassword from "../../components/resetpassword/index";
 export default {
-  components: { BGT },
+  components: {
+    BGT,
+    resetpassword
+  },
   data() {
     return {
       form: null,
@@ -95,7 +101,16 @@ export default {
     };
   },
   methods: {
-    aClick() {
+    aClick(type) {
+      if (type == "登陆") {
+        console.log(1);
+      } else if (type == "注册") {
+        console.log(2);
+        this.$router.push({ path: "/register" });
+      } else if (type == "忘记密码") {
+        console.log(3);
+        this.$refs.resetpsd.showModal();
+      }
       return false;
     },
     handleSubmit(e) {
@@ -104,7 +119,6 @@ export default {
         if (!err) {
           let psd = values.password;
           let user = values.userName;
-          // console.log(psd, user);
           this.$api.login({ password: psd, userName: user }).then(res => {
             console.log(res);
             if (res.code === 200) {
