@@ -308,7 +308,7 @@ export default {
       //     this.mesh.add(petalCore);
       //   };
 
-      var petalColors = [Colors.red, Colors.yellow, Colors.blue];
+      // var petalColors = [Colors.red, Colors.yellow, Colors.blue];
 
       var Forest = function() {
         this.mesh = new THREE.Object3D();
