@@ -20,12 +20,12 @@ app.use(cors()); //全部允许跨域
 // error handler
 onerror(app);
 
-const secret = "token"; //密钥，不能丢
-// const tokenCheck = require("./token/checkToken");
+const secret = "serect"; //密钥，不能丢
+
 /* 路由权限控制 */
 app.use(
   jwtKoa({ secret: secret }).unless({
-    // 设置login、register接口，可以不需要认证访问
+    // 设置接口，可以不需要认证访问
     path: [
       /^\/api\/login/,
       /^\/api\/register/,
@@ -37,7 +37,6 @@ app.use(
     ]
   })
 );
-// app.use(tokenCheck());
 
 // 接收参数类型定义
 app.use(

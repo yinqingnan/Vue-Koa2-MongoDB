@@ -89,6 +89,8 @@
 <script>
 import BGT from "@/components/3DBG/index";
 import resetpassword from "../../components/resetpassword/index";
+import { createNamespacedHelpers } from "vuex";
+const { mapMutations } = createNamespacedHelpers("nav");
 export default {
   components: {
     BGT,
@@ -123,14 +125,19 @@ export default {
             console.log(res);
             if (res.code === 200) {
               localStorage.setItem("token", res.token);
-              this.$router.push({ path: "/home" });
+              localStorage.setItem("nav", res.jurisdiction);
+              this.addnav(res.jurisdiction);
+              this.$router.push({ path: "/home/index" });
               this.$message.info("登陆成功", 2);
               this.show = false;
             }
           });
         }
       });
-    }
+    },
+    ...mapMutations({
+      addnav: "addnav"
+    })
   },
   mounted() {
     this.form = this.$form.createForm(this, { name: "normal_login" });

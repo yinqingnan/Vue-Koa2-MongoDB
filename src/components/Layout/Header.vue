@@ -19,7 +19,7 @@ export default {
   methods: {
     btn() {
       this.collapsed = !this.collapsed;
-      console.log(111);
+      // console.log(111);
     }
   }
 };

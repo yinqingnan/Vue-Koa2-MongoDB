@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const serect = "my_token"; //密钥，不能丢
+const serect = "serect"; //密钥，不能丢
 module.exports = userinfo => {
   //创建token并导出
   const token = jwt.sign(

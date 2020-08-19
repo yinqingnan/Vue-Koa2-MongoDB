@@ -1,3 +1,4 @@
 import car from "./car";
 import login from "./login";
-export { car, login };
+import nav from "./nav";
+export { car, login, nav };

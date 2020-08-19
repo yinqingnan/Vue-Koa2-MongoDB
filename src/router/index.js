@@ -8,10 +8,26 @@ const routes = [
   {
     path: "/",
     name: "home",
-    redirect: "/home",
+    redirect: "/home/index",
     component: () => {
       return import("../view/home/index.vue");
-    }
+    },
+    children: [
+      {
+        path: "/home/index",
+        name: "index",
+        component: () => {
+          return import("../view/index/index.vue");
+        }
+      },
+      {
+        path: "/home/nemgmt",
+        name: "memgmt",
+        component: () => {
+          return import("../view/nemgmt/index.vue");
+        }
+      }
+    ]
   },
   {
     path: "/login",
@@ -37,12 +53,33 @@ const routes = [
     }
   },
   {
-    path: "/home",
-    name: "Home",
+    path: "/404",
+    name: "404",
     component: () => {
-      return import("../view/home/index.vue");
+      return import("../view/Error/error404.vue");
+    }
+  },
+  {
+    path: "/403",
+    name: "403",
+    component: () => {
+      return import("../view/Error/error403.vue");
+    }
+  },
+  {
+    path: "/500",
+    name: "500",
+    component: () => {
+      return import("../view/Error/error500.vue");
     }
   }
+  // {
+  //   path: "/home",
+  //   name: "Home",
+  //   component: () => {
+  //     return import("../view/home/index.vue");
+  //   }
+  // }
 ];
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {

@@ -43,7 +43,7 @@ axios.interceptors.request.use(
     // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
     // vm.$Loading.show();
     const token = localStorage.getItem("token");
-    token && (config.headers.Authorization = token);
+    token && (config.headers.Authorization = "Bearer " + token);
     return config;
   },
   error => {

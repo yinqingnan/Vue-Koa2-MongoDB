@@ -1,9 +1,8 @@
 <template>
   <div>
     <a-layout-content class="layoutcontent">
-      <!-- Content -->
+      <!-- 右侧页面主体 -->
       <router-view></router-view>
-      aaaaaaaaaaa
     </a-layout-content>
   </div>
 </template>

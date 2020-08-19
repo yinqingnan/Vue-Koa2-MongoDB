@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-layout id="components-layout-demo-custom-trigger">
-      <LeftMenu></LeftMenu>
+      <LeftMenu :list="list"></LeftMenu>
       <a-layout>
         <Header></Header>
         <Content></Content>
@@ -13,11 +13,29 @@
 import LeftMenu from "@/components/Layout/Menu";
 import Header from "@/components/Layout/Header";
 import Content from "@/components/Layout/Content";
+
 export default {
   components: { LeftMenu, Header, Content },
   data() {
-    return {};
-  }
+    return {
+      list: []
+    };
+  },
+  methods: {
+    getnavlist(obj) {
+      this.$api.getnavlist(obj).then(res => {
+        this.list = res.data;
+      });
+    }
+  },
+  mounted() {
+    //权限信息
+    let obj = {
+      state: localStorage.getItem("nav")
+    };
+    this.getnavlist(obj);
+  },
+  computed: {}
 };
 </script>
 <style lang="less" scope>
