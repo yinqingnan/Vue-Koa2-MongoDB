@@ -5,3 +5,5 @@ export const USERNAME = "username"; //注册
 export const MODIFYPSD = "modifypsd"; //修改密码
 
 export const ADDNAV = "addnav"; //添加导航信息
+
+export const MENUSIZE = 'menusize'   //修改菜单大小

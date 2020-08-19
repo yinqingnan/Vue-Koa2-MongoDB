@@ -4,9 +4,13 @@
       :trigger="null"
       collapsible
       v-model="collapsed"
-      style="width:250px;max-width:250px"
+      :style="{'width':(collapsed ? '250px' : '' )}"
     >
-      <div class="logo"><a-icon type="loading" />XX系统</div>
+      <div class="logo">
+        <img src="../../assets/img/hz.png" alt />
+        <a v-if="!collapsed">XXXXX平台</a>
+        
+      </div>
       <a-menu
         :default-selected-keys="['1']"
         :default-open-keys="['2']"
@@ -36,27 +40,34 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapMutations } = createNamespacedHelpers("systemconfig");
 import subMenu from "@/components/Layout/SiderMenu/index";
+
 export default {
   components: {
-    subMenu
+    subMenu,
   },
   data() {
     return {
-      collapsed: false,
-      selectedKeys: null
-      // list: []
+      // collapsed: false,
+      selectedKeys: null,
     };
   },
   methods: {
     select({ item, key, selectedKeys }) {
       // 选中项
       this.selectedKeys = [key];
-    }
+    },
   },
   props: ["list"],
-  component: {},
-  mounted() {}
+  computed: {
+    ...mapState({
+      collapsed: (state) => state.collapsed,
+    }),
+  },
+  mounted() {
+  },
 };
 </script>
 <style lang="less" scope>
@@ -70,5 +81,17 @@ export default {
 .logo {
   color: #fff;
   text-align: center;
+  display: flex;
+  > img {
+    display: inline-block;
+    height: 32px;
+    vertical-align: middle;
+    transition: height 0.2s;
+  }
+  >a{
+    font-size: 20px;
+    // margin-left:8px;
+    white-space: nowrap;
+  }
 }
 </style>
