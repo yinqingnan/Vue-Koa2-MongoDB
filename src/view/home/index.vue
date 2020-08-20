@@ -122,7 +122,7 @@ export default {
   }
   a {
     display: inline-block;
-    font-size: 700px;
+    font-size: 696px;
     position: absolute;
     top: -507px;
     left: -50px;
