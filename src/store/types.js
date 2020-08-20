@@ -6,4 +6,8 @@ export const MODIFYPSD = "modifypsd"; //修改密码
 
 export const ADDNAV = "addnav"; //添加导航信息
 
-export const MENUSIZE = 'menusize'   //修改菜单大小
+export const MENUSIZE = "menusize"; //修改菜单大小
+
+export const CHANGENAV = "changenav"; //改变nav位置
+
+export const CHANGENAVCLOOR = "changenavcloor";

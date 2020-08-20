@@ -18,7 +18,9 @@ import {
   Modal,
   Menu,
   Layout,
-  notification
+  notification,
+  Switch,
+  Drawer
 } from "ant-design-vue";
 
 Vue.component(Button.name, Button);
@@ -26,11 +28,13 @@ Vue.use(api) //注册axiosAPI
   .use(Form)
   .use(Input)
   .use(Layout)
+  .use(Switch)
   .use(Checkbox)
   .use(Icon)
   .use(Menu)
   .use(Select)
   .use(Modal)
+  .use(Drawer)
   .use(message);
 Vue.prototype.$message = message; //全局注册message
 Vue.prototype.$notification = notification; //全局注册message

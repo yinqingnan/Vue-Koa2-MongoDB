@@ -4,20 +4,22 @@
       :trigger="null"
       collapsible
       v-model="collapsed"
-      :style="{'width':(collapsed ? '250px' : '' )}"
+      :style="{ width: collapsed ? '' : 'auto' }"
+      :class="{ bg: theme == 'light' }"
     >
+      <!-- :style="{ width: collapsed ? '256px' : '' }" -->
       <div class="logo">
         <img src="../../assets/img/hz.png" alt />
         <a v-if="!collapsed">XXXXX平台</a>
-        
       </div>
       <a-menu
         :default-selected-keys="['1']"
         :default-open-keys="['2']"
         mode="inline"
-        theme="dark"
+        :theme="theme"
         @click="select"
         :inline-collapsed="collapsed"
+        :style="{ width: collapsed ? '' : '256px' }"
       >
         <template v-for="item in list">
           <a-menu-item v-if="!item.children" :key="item.key">
@@ -41,41 +43,46 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapMutations } = createNamespacedHelpers("systemconfig");
+const { mapState } = createNamespacedHelpers("systemconfig");
 import subMenu from "@/components/Layout/SiderMenu/index";
 
 export default {
   components: {
-    subMenu,
+    subMenu
   },
   data() {
     return {
       // collapsed: false,
-      selectedKeys: null,
+      selectedKeys: null
     };
   },
   methods: {
+    // eslint-disable-next-line no-unused-vars
     select({ item, key, selectedKeys }) {
       // 选中项
       this.selectedKeys = [key];
-    },
+    }
   },
   props: ["list"],
   computed: {
     ...mapState({
-      collapsed: (state) => state.collapsed,
-    }),
+      collapsed: state => state.collapsed,
+      theme: state => state.theme
+    })
   },
-  mounted() {
-  },
+  mounted() {}
 };
 </script>
 <style lang="less" scope>
+// @import "~ant-design-vue/lib/style/themes/default.less";
+@import "../../styles/theme/variables.less";
 .Menu {
   .ant-layout-sider-children {
     height: 100vh;
-    // width: 250px !important;
-    // max-width: 250px !important;
+  }
+  > div {
+    max-width: 300px !important;
+    // background: @theme;
   }
 }
 .logo {
@@ -88,10 +95,13 @@ export default {
     vertical-align: middle;
     transition: height 0.2s;
   }
-  >a{
+  > a {
     font-size: 20px;
-    // margin-left:8px;
+    margin-left: 8px;
     white-space: nowrap;
   }
+}
+.bg {
+  background: #fff !important;
 }
 </style>

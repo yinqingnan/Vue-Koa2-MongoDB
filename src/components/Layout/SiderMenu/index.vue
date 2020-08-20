@@ -9,7 +9,7 @@
       <a-menu-item v-if="!item.children" :key="item.key">
         <router-link
           :to="{
-            path: item.path,
+            path: '/home' + item.path,
             params: { sTitle: item.meta.title, title: item.meta.title }
           }"
         >

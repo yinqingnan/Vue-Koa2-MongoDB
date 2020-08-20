@@ -39,8 +39,4 @@ export default {
 
   user-select: none;
 }
-h1,h2,h3,h4,h5,h6,ul,li{
-  margin: 0 !important; 
-  padding: 0 !important;
-}
 </style>
