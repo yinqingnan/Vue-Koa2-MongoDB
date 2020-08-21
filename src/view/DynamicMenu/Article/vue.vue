@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    VUE页面
   </div>
 </template>

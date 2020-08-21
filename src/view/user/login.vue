@@ -21,7 +21,7 @@
                 {
                   rules: [
                     { required: true, message: '请输入账户!' },
-                    { min: 2, max: 8, message: '长度在 2 到 8 个字符' }
+                    { min: 2, max: 20, message: '长度在 2 到 20 个字符' }
                   ]
                 }
               ]"
@@ -70,10 +70,10 @@
           </a-form-item>
           <a-form-item class="bottom1">
             <div class="bottom">
-              <h6>
+              <h6 @click="aClick('注册')">
                 <a href="" @click.prevent="aClick('注册')">注册!</a>
               </h6>
-              <h6 class="login-form-forgot">
+              <h6 class="login-form-forgot" @click="aClick('忘记密码')">
                 <a href="" @click.prevent="aClick('忘记密码')">忘记密码</a>
               </h6>
             </div>
@@ -105,12 +105,10 @@ export default {
   methods: {
     aClick(type) {
       if (type == "登陆") {
-        console.log(1);
+        // console.log(1);
       } else if (type == "注册") {
-        console.log(2);
         this.$router.push({ path: "/register" });
       } else if (type == "忘记密码") {
-        console.log(3);
         this.$refs.resetpsd.showModal();
       }
       return false;
@@ -122,7 +120,7 @@ export default {
           let psd = values.password;
           let user = values.userName;
           this.$api.login({ password: psd, userName: user }).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.code === 200) {
               localStorage.setItem("token", res.token);
               localStorage.setItem("nav", res.jurisdiction);
@@ -130,6 +128,8 @@ export default {
               this.$router.push({ path: "/home/index" });
               this.$message.info("登陆成功", 2);
               this.show = false;
+            } else {
+              this.$message.error(res.msg);
             }
           });
         }
@@ -141,7 +141,6 @@ export default {
   },
   mounted() {
     this.form = this.$form.createForm(this, { name: "normal_login" });
-    this.$refs.child.inif();
   },
   created() {
     this.show = true;
@@ -175,21 +174,21 @@ export default {
     top: calc(~"50% - 200px");
     left: calc(~"50% - 200px");
     height: 400px;
-    /deep/ .ant-form-item {
+    .ant-form-item {
       display: flex !important;
     }
 
-    /deep/ .ant-form-item-children {
+    .ant-form-item-children {
       display: block;
       width: 100%;
     }
-    /deep/ label {
+    label {
       color: #fff !important;
     }
   }
 }
 .bottom1 {
-  /deep/ .ant-form-item-control-wrapper {
+  .ant-form-item-control-wrapper {
     width: 100%;
   }
 }
@@ -198,5 +197,10 @@ export default {
   display: flex !important;
   justify-content: space-between;
   padding: 0 74px;
+  h6 {
+    width: 30%;
+    text-align: center;
+    cursor: pointer;
+  }
 }
 </style>

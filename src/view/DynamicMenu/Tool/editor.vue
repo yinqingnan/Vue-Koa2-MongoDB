@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    富文本编辑器
   </div>
 </template>

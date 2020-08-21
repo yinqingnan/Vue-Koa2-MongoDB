@@ -28,5 +28,7 @@ module.exports = {
 
   configureWebpack: {
     plugins: [new AntDesignThemePlugin(options)]
-  }
+  },
+  publicPath: "/",
+  outputDir: "dist"
 };

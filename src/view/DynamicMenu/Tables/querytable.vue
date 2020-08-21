@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    查询表格
   </div>
 </template>

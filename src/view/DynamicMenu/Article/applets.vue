@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    小程序相关页面
   </div>
 </template>

@@ -11,7 +11,7 @@
           />
         </h2>
         <a-menu
-          v-model="current"
+          v-model="defaultSelectedKeys"
           mode="horizontal"
           @click="select"
           v-if="topnav"
@@ -33,7 +33,6 @@
             <subMenu v-else :key="item.id" :menu-info="item" />
           </template>
         </a-menu>
-
         <div>
           <!-- <h2>头部操作部分</h2> -->
         </div>
@@ -51,7 +50,9 @@ export default {
     return {
       current: ["1"],
       collapsed: true,
-      selectedKeys: null
+      selectedKeys: null,
+      defaultSelectedKeys: ["1"],
+      defaultOpenKeys: ["3"]
     };
   },
   methods: {
@@ -76,6 +77,13 @@ export default {
       leftnav: state => state.leftnav,
       theme: state => state.theme
     })
+  },
+  mounted() {
+    if (localStorage.getItem("navcode")) {
+      this.defaultSelectedKeys = [localStorage.getItem("navcode")];
+    } else {
+      this.this.defaultSelectedKeys = ["1"];
+    }
   },
   props: ["list"]
 };

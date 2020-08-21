@@ -187,7 +187,7 @@ export default {
       console.log(`a-switch to ${checked}`);
     },
     onChangeheadershow(checked) {
-      console.log(`a-switch to ${checked}`);
+      this.$emit("close", "header", checked);
     },
     stylesetting(index) {
       this.$message.success("正在修改菜单主题风格", 2);

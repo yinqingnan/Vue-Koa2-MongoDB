@@ -2,9 +2,8 @@
   <div>
     <a-layout id="components-layout-demo-custom-trigger">
       <LeftMenu :list="list" v-if="leftnav"></LeftMenu>
-
       <a-layout>
-        <Header :list="list"></Header>
+        <Header :list="list" v-if="show"></Header>
         <Content></Content>
       </a-layout>
     </a-layout>
@@ -27,7 +26,8 @@ export default {
   data() {
     return {
       list: [],
-      judge: false
+      judge: false,
+      show: true
     };
   },
   methods: {
@@ -43,11 +43,13 @@ export default {
         this.$refs.setdrawer.showDrawer();
       }
     },
-    close() {
-      // setTimeout(() => {
+    // 设置弹窗回传方法
+    close(type, val) {
+      if (type == "header") {
+        this.show = val;
+      }
       this.$refs.setting.style.right = "0px";
       this.judge = false;
-      // }, 200);
     }
   },
   mounted() {
@@ -56,6 +58,13 @@ export default {
       state: localStorage.getItem("nav")
     };
     this.getnavlist(obj);
+    // let token = localStorage.getItem("token");
+    // if (!token) {
+    //   this.$message.erroe("未登录，即将返回登录页面");
+    //   setTimeout(() => {
+    //     this.$router.push({ path: "/login" });
+    //   }, 2000);
+    // }
   },
   computed: {
     ...mapState({

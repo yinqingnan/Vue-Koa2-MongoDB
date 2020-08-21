@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    REACT页面
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    权限管理
   </div>
 </template>

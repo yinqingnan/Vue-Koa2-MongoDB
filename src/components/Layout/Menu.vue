@@ -13,8 +13,8 @@
         <a v-if="!collapsed">XXXXX平台</a>
       </div>
       <a-menu
-        :default-selected-keys="['1']"
-        :default-open-keys="['2']"
+        :defaultSelectedKeys="defaultSelectedKeys"
+        :defaultOpenKeys="defaultOpenKeys"
         mode="inline"
         :theme="theme"
         @click="select"
@@ -52,15 +52,22 @@ export default {
   },
   data() {
     return {
-      // collapsed: false,
-      selectedKeys: null
+      // defaultSelectedKeys: [localStorage.getItem("navcode")],
+      defaultSelectedKeys: ["1"],
+      selectedKeys: null,
+      // defaultOpenKeys: [localStorage.getItem("childnavcode")]
+      defaultOpenKeys: ["3"]
     };
   },
   methods: {
     // eslint-disable-next-line no-unused-vars
     select({ item, key, selectedKeys }) {
       // 选中项
+      let childnavcode = item.subMenuKey.split("-")[0]; // 默认打开的子菜单列表
+      localStorage.setItem("childnavcode", childnavcode);
+      localStorage.setItem("navcode", key);
       this.selectedKeys = [key];
+      // console.log(localStorage.getItem("navcode"));
     }
   },
   props: ["list"],
@@ -70,16 +77,54 @@ export default {
       theme: state => state.theme
     })
   },
-  mounted() {}
+  mounted() {
+    console.log(localStorage.getItem("navcode"));
+    if (localStorage.getItem("navcode") != "") {
+      this.defaultSelectedKeys = [localStorage.getItem("navcode")];
+      // this.defaultOpenKeys = [localStorage.getItem("childnavcode")];
+    } else {
+      this.defaultSelectedKeys = ["1"];
+      // this.defaultOpenKeys = [];
+    }
+  }
 };
 </script>
 <style lang="less" scope>
-// @import "~ant-design-vue/lib/style/themes/default.less";
 @import "../../styles/theme/variables.less";
 .Menu {
   .ant-layout-sider-children {
     height: 100vh;
+    overflow-y: scroll;
+    padding-bottom: 50px;
   }
+  /* PC端手机端滚动条优化 */
+  .ant-layout-sider-children::-webkit-scrollbar {
+    width: 4px !important;
+    height: 1px !important;
+  }
+  .ant-layout-sider-children::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: #c5c5c5 !important;
+    transition: 0.5s all;
+  }
+  .ant-layout-sider-children::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: #c5c5c5 !important;
+    transition: 0.5s all;
+  }
+  .ant-layout-sider-children::-webkit-scrollbar-track-piece {
+    background-color: #f8f8f8 !important;
+    -webkit-border-radius: 0px;
+  }
+  .ant-layout-sider-children::-webkit-scrollbar-thumb:vertical {
+    height: 1px;
+    background-color: f8f8f8 !important;
+    -webkit-border-radius: 0px !important;
+  }
+  .ant-layout-sider-children::-webkit-scrollbar-thumb:horizontal {
+    width: 4px;
+    background-color: f8f8f8 !important;
+    -webkit-border-radius: 0px !important;
+  }
+
   > div {
     max-width: 300px !important;
     // background: @theme;

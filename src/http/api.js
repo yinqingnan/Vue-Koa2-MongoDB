@@ -13,11 +13,8 @@ import "ant-design-vue/lib/message/style";
 // import store from "../store/index";
 // import router from "../router/index";
 
-// export const http = "http://192.168.10.64:8081"; //陈炜
-//export const http ="https://easy-mock.com/mock" //测试地址
-// const http = "http://192.168.10.242:20020/";
-// export const http = process.env.VUE_APP_URL; //开发环境
-export const http = "http://127.0.0.1:3000"; //开发环境
+export const http = "http://123.57.181.73:3000/"; //阿里云服务器开发环境
+
 let iTime;
 /**
  * 配置默认请求地址

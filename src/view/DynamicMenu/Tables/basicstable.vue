@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    基础表格
   </div>
 </template>

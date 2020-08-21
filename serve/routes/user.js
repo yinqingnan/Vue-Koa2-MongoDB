@@ -1,7 +1,8 @@
 const router = require("koa-router")();
 // 引入操作数据库的中间件
 const Monk = require("monk");
-const db = new Monk("127.0.0.1:27017/yqn"); //链接到数据库 指定到yqn库
+// const db = new Monk("127.0.0.1:27017/yqn"); //链接到本地数据库 指定到yqn库
+const db = new Monk("123.57.181.73:27017/yqn"); //链接到远程数据库 指定到yqn库
 const user = db.get("user"); //选择用户列表
 const adminlist = db.get("AdminNav"); //admin用户列表
 const OrdinaryNav = db.get("OrdinaryNav"); //admin用户列表

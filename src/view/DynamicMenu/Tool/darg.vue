@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    拖拽组件
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
   <div>
-    最外层首页
+    卡片式列表
   </div>
 </template>
