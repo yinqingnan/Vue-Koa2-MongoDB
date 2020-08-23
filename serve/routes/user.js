@@ -17,27 +17,27 @@ router.get("/login1", function(ctx, e) {
   // console.log(psd   + name  )
   ctx.body = {
     psd,
-    name
+    name,
   };
 });
 
 // post请求接收参数  post请求不能直接在页面上测试
 // 登陆
-router.post("/login", async ctx => {
+router.post("/login", async (ctx) => {
   let postParam = ctx.request.body; // 接收的参数;
   let psd = postParam.password;
   let name = postParam.userName;
   let msg = await user.find(); //表查询
   ctx.response.type = "application/json"; //设置返回的数据类型
 
-  let obj = msg.filter(item => {
+  let obj = msg.filter((item) => {
     // console.log(item);
     return item.user === name;
   });
   if (obj.length === 0) {
     ctx.body = {
       code: 500,
-      msg: "没有该账户信息"
+      msg: "没有该账户信息",
     };
   } else {
     if (obj[0].psd === psd) {
@@ -45,20 +45,20 @@ router.post("/login", async ctx => {
         code: 200,
         token: token(obj), //调用方法生成token
         msg: "登陆成功",
-        jurisdiction: obj[0].jurisdiction
+        jurisdiction: obj[0].jurisdiction,
       };
       // console.log(token(obj));
     } else {
       ctx.body = {
         code: 500,
-        msg: "用户密码错误"
+        msg: "用户密码错误",
       };
     }
   }
 });
 //模拟验证码生成
 let verification = null;
-router.post("/verification", async ctx => {
+router.post("/verification", async (ctx) => {
   let postParam = ctx.request.body; // 接收的参数;
   console.log(postParam);
   verification = Math.random()
@@ -68,7 +68,7 @@ router.post("/verification", async ctx => {
 });
 
 // 请求示例
-router.get("/getcode", async ctx => {
+router.get("/getcode", async (ctx) => {
   // let st = await user.find();
   ctx.response.type = "application/json";
   // ctx.body = st;
@@ -76,7 +76,7 @@ router.get("/getcode", async ctx => {
 });
 
 // 注册register
-router.post("/register", async ctx => {
+router.post("/register", async (ctx) => {
   let postParam = ctx.request.body; // 接收的参数;
   let msg = await user.find(); //表查询信息
   let userName = postParam.userName;
@@ -85,50 +85,50 @@ router.post("/register", async ctx => {
   if (Vcode !== verification) {
     ctx.body = {
       code: 500,
-      msg: "验证码不正确"
+      msg: "验证码不正确",
     };
   } else {
-    let obj = msg.filter(item => {
+    let obj = msg.filter((item) => {
       console.log(item);
       return item.user === userName;
     });
     if (obj.length != "") {
       ctx.body = {
         code: 500,
-        msg: "用户名已被注册"
+        msg: "用户名已被注册",
       };
     } else {
       //将数据添加到数据库中
       let data = {
         user: userName,
-        psd: psd
+        psd: psd,
       };
       user.insert(data);
       ctx.body = {
         code: "200",
-        msg: "添加成功"
+        msg: "添加成功",
       };
     }
   }
 });
 
 // 重置密码
-router.post("/resetpsd", async ctx => {
+router.post("/resetpsd", async (ctx) => {
   let postParam = ctx.request.body; // 接收的参数;
   let msg = await user.find(); //表查询信息
   if (postParam.Vcode !== verification) {
     ctx.body = {
       code: 500,
-      msg: "验证码不正确"
+      msg: "验证码不正确",
     };
   } else {
-    let obj = msg.filter(item => {
+    let obj = msg.filter((item) => {
       return item.user === postParam.userName;
     });
     if (obj.length == "") {
       ctx.body = {
         code: 500,
-        msg: "该用户名并未注册"
+        msg: "该用户名并未注册",
       };
     } else {
       let object = obj[0];
@@ -136,14 +136,14 @@ router.post("/resetpsd", async ctx => {
       user.update({ user: object.user }, { $set: { psd: object.psd } });
       ctx.body = {
         code: 200,
-        msg: "修改成功，请用新密码登陆"
+        msg: "修改成功，请用新密码登陆",
       };
     }
   }
 });
 
 //获取nav列表
-router.post("/getnavlist", async ctx => {
+router.post("/getnavlist", async (ctx) => {
   let postParam = ctx.request.body; // 接收的参数;
   let state = postParam.state;
   // 通过权限判断下发不同的导航列表
@@ -159,7 +159,7 @@ router.post("/getnavlist", async ctx => {
   ctx.body = {
     code: 200,
     msg: "success",
-    data: navlist
+    data: navlist,
   };
 });
 

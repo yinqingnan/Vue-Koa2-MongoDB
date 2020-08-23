@@ -1,20 +1,18 @@
 <template>
   <div>
-    <BGT ref="child" />
+    <!-- <BGT ref="child" /> -->
     <div class="box">
       <div class="Popup">
-        <h1><a @click.prevent="aClick('登陆')">登陆系统</a></h1>
+        <h1>
+          <a @click.prevent="aClick('登陆')">登陆系统</a>
+        </h1>
         <a-form
           id="components-form-demo-normal-login"
           :form="form"
           class="login-form"
           @submit="handleSubmit"
         >
-          <a-form-item
-            label="账户"
-            :label-col="{ span: 6 }"
-            :wrapper-col="{ span: 14 }"
-          >
+          <a-form-item label="账户" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }">
             <a-input
               v-decorator="[
                 'userName',
@@ -28,18 +26,10 @@
               placeholder="用户名"
               allow-clear
             >
-              <a-icon
-                slot="prefix"
-                type="user"
-                style="color: rgba(0,0,0,.25)"
-              />
+              <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
             </a-input>
           </a-form-item>
-          <a-form-item
-            label="密码"
-            :label-col="{ span: 6 }"
-            :wrapper-col="{ span: 14 }"
-          >
+          <a-form-item label="密码" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }">
             <a-input
               v-decorator="[
                 'password',
@@ -51,11 +41,7 @@
               placeholder="密码"
               allow-clear
             >
-              <a-icon
-                slot="prefix"
-                type="lock"
-                style="color: rgba(0,0,0,.25)"
-              />
+              <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
             </a-input>
           </a-form-item>
           <a-form-item>
@@ -64,17 +50,15 @@
               type="primary"
               html-type="submit"
               class="login-form-button"
-            >
-              登陆
-            </a-button>
+            >登陆</a-button>
           </a-form-item>
           <a-form-item class="bottom1">
             <div class="bottom">
               <h6 @click="aClick('注册')">
-                <a href="" @click.prevent="aClick('注册')">注册!</a>
+                <a href @click.prevent="aClick('注册')">注册!</a>
               </h6>
               <h6 class="login-form-forgot" @click="aClick('忘记密码')">
-                <a href="" @click.prevent="aClick('忘记密码')">忘记密码</a>
+                <a href @click.prevent="aClick('忘记密码')">忘记密码</a>
               </h6>
             </div>
           </a-form-item>
@@ -88,18 +72,22 @@
 </template>
 <script>
 import BGT from "@/components/3DBG/index";
-import resetpassword from "../../components/resetpassword/index";
+import resetpassword from "@/components/resetpassword/index";
 import { createNamespacedHelpers } from "vuex";
 const { mapMutations } = createNamespacedHelpers("nav");
+import router from "@/router";
+import routerlist from "@/router/routerlist";
+import { resetRouter } from "@/router/index";
+import { getList } from "../../router/setRouter";
 export default {
   components: {
     BGT,
-    resetpassword
+    resetpassword,
   },
   data() {
     return {
       form: null,
-      show: true
+      show: true,
     };
   },
   methods: {
@@ -119,15 +107,20 @@ export default {
         if (!err) {
           let psd = values.password;
           let user = values.userName;
-          this.$api.login({ password: psd, userName: user }).then(res => {
+          this.$api.login({ password: psd, userName: user }).then((res) => {
             // console.log(res);
             if (res.code === 200) {
               localStorage.setItem("token", res.token);
               localStorage.setItem("nav", res.jurisdiction);
+              localStorage.setItem("navcode", 1);
+              localStorage.setItem("openKeys", 1);
               this.addnav(res.jurisdiction);
-              this.$router.push({ path: "/home/index" });
               this.$message.info("登陆成功", 2);
               this.show = false;
+              this.addnavlist(routerlist);
+              resetRouter(); //新建路由
+              router.addRoutes(routerlist); //压入动态路由
+              this.$router.push({ path: "/home/index" });
             } else {
               this.$message.error(res.msg);
             }
@@ -136,19 +129,20 @@ export default {
       });
     },
     ...mapMutations({
-      addnav: "addnav"
-    })
+      addnav: "addnav",
+      addnavlist: "addnavlist",
+    }),
   },
   mounted() {
     this.form = this.$form.createForm(this, { name: "normal_login" });
   },
   created() {
     this.show = true;
-  }
+  },
 };
 </script>
 <style lang="less" scope>
-@skyblue :skybule;
+@skyblue: skybule;
 * {
   user-select: none;
 }

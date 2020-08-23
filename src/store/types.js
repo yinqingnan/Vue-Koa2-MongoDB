@@ -11,3 +11,5 @@ export const MENUSIZE = "menusize"; //修改菜单大小
 export const CHANGENAV = "changenav"; //改变nav位置
 
 export const CHANGENAVCLOOR = "changenavcloor";
+
+export const ADDNAVLIST = "addnavlist"; //登录时添加路由信息

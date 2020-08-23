@@ -21,19 +21,22 @@ import Content from "@/components/Layout/Content";
 import setDrawer from "@/components/Drawer/setDrawer";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("systemconfig");
+
 export default {
   components: { LeftMenu, Header, Content, setDrawer },
   data() {
     return {
       list: [],
       judge: false,
-      show: true
+      show: true,
     };
   },
   methods: {
     getnavlist(obj) {
-      this.$api.getnavlist(obj).then(res => {
+      this.$api.getnavlist(obj).then((res) => {
         this.list = res.data;
+        // console.log(JSON.stringify(res.data));
+        localStorage.setItem("navlist", JSON.stringify(res.data));
       });
     },
     setting() {
@@ -50,40 +53,35 @@ export default {
       }
       this.$refs.setting.style.right = "0px";
       this.judge = false;
-    }
+    },
   },
   mounted() {
     //权限信息
     let obj = {
-      state: localStorage.getItem("nav")
+      state: localStorage.getItem("nav"),
     };
     this.getnavlist(obj);
-    // let token = localStorage.getItem("token");
-    // if (!token) {
-    //   this.$message.erroe("未登录，即将返回登录页面");
-    //   setTimeout(() => {
-    //     this.$router.push({ path: "/login" });
-    //   }, 2000);
-    // }
+
+    console.log(this.$router);
   },
   computed: {
     ...mapState({
-      leftnav: state => state.leftnav
-    })
+      leftnav: (state) => state.leftnav,
+    }),
   },
   directives: {
     drag(el) {
-      el.onmousedown = function(e) {
+      el.onmousedown = function (e) {
         var disy = e.pageY - el.offsetTop;
-        document.onmousemove = function(e) {
+        document.onmousemove = function (e) {
           el.style.top = e.pageY - disy + "px";
         };
-        document.onmouseup = function() {
+        document.onmouseup = function () {
           document.onmousemove = document.onmouseup = null;
         };
       };
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scope>

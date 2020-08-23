@@ -14,10 +14,11 @@
       </div>
       <a-menu
         :defaultSelectedKeys="defaultSelectedKeys"
-        :defaultOpenKeys="defaultOpenKeys"
+        :openKeys="openKeys"
         mode="inline"
         :theme="theme"
         @click="select"
+        @openChange="onOpenChange"
         :inline-collapsed="collapsed"
         :style="{ width: collapsed ? '' : '256px' }"
       >
@@ -34,7 +35,7 @@
               <span>{{ item.meta.title }}</span>
             </router-link>
           </a-menu-item>
-          <subMenu v-else :key="item.id" :menu-info="item" />
+          <subMenu v-else :key="item.key" :menu-info="item" />
         </template>
       </a-menu>
     </a-layout-sider>
@@ -48,49 +49,50 @@ import subMenu from "@/components/Layout/SiderMenu/index";
 
 export default {
   components: {
-    subMenu
+    subMenu,
   },
   data() {
     return {
-      // defaultSelectedKeys: [localStorage.getItem("navcode")],
-      defaultSelectedKeys: ["1"],
       selectedKeys: null,
-      // defaultOpenKeys: [localStorage.getItem("childnavcode")]
-      defaultOpenKeys: ["3"]
+      defaultSelectedKeys: [localStorage.getItem("navcode")], //默认选中的标签
+      openKeys: [localStorage.getItem("openKeys")], //默认展开的菜单组
+      show: false,
     };
   },
   methods: {
+    onOpenChange(openKeys) {
+      if (openKeys.length !== 0) {
+        this.openKeys = [openKeys[1]];
+        // console.log(this.openKeys);
+        localStorage.setItem("openKeys", this.openKeys);
+      } else {
+        this.openKeys = [""];
+      }
+    },
     // eslint-disable-next-line no-unused-vars
     select({ item, key, selectedKeys }) {
       // 选中项
-      let childnavcode = item.subMenuKey.split("-")[0]; // 默认打开的子菜单列表
-      localStorage.setItem("childnavcode", childnavcode);
+      console.log(key);
+      if (key == 1 || key == 7) {
+        this.openKeys = [""];
+      }
+      let obj = JSON.parse(localStorage.getItem("navlist")); //菜单列表数据
       localStorage.setItem("navcode", key);
       this.selectedKeys = [key];
-      // console.log(localStorage.getItem("navcode"));
-    }
+    },
   },
   props: ["list"],
   computed: {
     ...mapState({
-      collapsed: state => state.collapsed,
-      theme: state => state.theme
-    })
+      collapsed: (state) => state.collapsed,
+      theme: (state) => state.theme,
+    }),
   },
-  mounted() {
-    console.log(localStorage.getItem("navcode"));
-    if (localStorage.getItem("navcode") != "") {
-      this.defaultSelectedKeys = [localStorage.getItem("navcode")];
-      // this.defaultOpenKeys = [localStorage.getItem("childnavcode")];
-    } else {
-      this.defaultSelectedKeys = ["1"];
-      // this.defaultOpenKeys = [];
-    }
-  }
+  mounted() {},
 };
 </script>
 <style lang="less" scope>
-@import "../../styles/theme/variables.less";
+// @import "../../styles/theme/variables.less";
 .Menu {
   .ant-layout-sider-children {
     height: 100vh;
@@ -112,17 +114,17 @@ export default {
   }
   .ant-layout-sider-children::-webkit-scrollbar-track-piece {
     background-color: #f8f8f8 !important;
-    -webkit-border-radius: 0px;
+    // -webkit-border-radius: 0px;
   }
   .ant-layout-sider-children::-webkit-scrollbar-thumb:vertical {
     height: 1px;
     background-color: f8f8f8 !important;
-    -webkit-border-radius: 0px !important;
+    // -webkit-border-radius: 0px !important;
   }
   .ant-layout-sider-children::-webkit-scrollbar-thumb:horizontal {
     width: 4px;
     background-color: f8f8f8 !important;
-    -webkit-border-radius: 0px !important;
+    // -webkit-border-radius: 0px !important;
   }
 
   > div {
