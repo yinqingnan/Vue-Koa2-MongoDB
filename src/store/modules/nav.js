@@ -1,7 +1,7 @@
 import { ADDNAV, ADDNAVLIST } from "../types";
 const state = {
   nav: null,
-  navlist: [],
+  navlist: []
 };
 const getters = {};
 const mutations = {
@@ -12,12 +12,12 @@ const mutations = {
   },
   [ADDNAVLIST](state, val) {
     state.navlist = val;
-  },
+  }
 };
 
 export default {
   namespaced: true, //命名空间
   state,
   getters,
-  mutations,
+  mutations
 };

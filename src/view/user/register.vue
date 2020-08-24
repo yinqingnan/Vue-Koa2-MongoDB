@@ -307,21 +307,21 @@ export default {
     top: calc(~"50% - 200px");
     left: calc(~"50% - 200px");
     height: 400px;
-      .ant-form-item {
+    .ant-form-item {
       display: flex !important;
     }
 
-      .ant-form-item-children {
+    .ant-form-item-children {
       display: block;
       width: 100%;
     }
-      label {
+    label {
       color: #fff !important;
     }
   }
 }
 .bottom1 {
-    .ant-form-item-control-wrapper {
+  .ant-form-item-control-wrapper {
     width: 100%;
   }
 }

@@ -49,14 +49,14 @@ import subMenu from "@/components/Layout/SiderMenu/index";
 
 export default {
   components: {
-    subMenu,
+    subMenu
   },
   data() {
     return {
       selectedKeys: null,
       defaultSelectedKeys: [localStorage.getItem("navcode")], //默认选中的标签
       openKeys: [localStorage.getItem("openKeys")], //默认展开的菜单组
-      show: false,
+      show: false
     };
   },
   methods: {
@@ -76,19 +76,20 @@ export default {
       if (key == 1 || key == 7) {
         this.openKeys = [""];
       }
+      // eslint-disable-next-line no-unused-vars
       let obj = JSON.parse(localStorage.getItem("navlist")); //菜单列表数据
       localStorage.setItem("navcode", key);
       this.selectedKeys = [key];
-    },
+    }
   },
   props: ["list"],
   computed: {
     ...mapState({
-      collapsed: (state) => state.collapsed,
-      theme: (state) => state.theme,
-    }),
+      collapsed: state => state.collapsed,
+      theme: state => state.theme
+    })
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 <style lang="less" scope>

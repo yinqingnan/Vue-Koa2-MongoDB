@@ -35,6 +35,7 @@ export default {
     getnavlist(obj) {
       this.$api.getnavlist(obj).then(res => {
         this.list = res.data;
+        // console.log(JSON.stringify(res.data));
         localStorage.setItem("navlist", JSON.stringify(res.data));
       });
     },
@@ -60,6 +61,8 @@ export default {
       state: localStorage.getItem("nav")
     };
     this.getnavlist(obj);
+
+    console.log(this.$router);
   },
   computed: {
     ...mapState({

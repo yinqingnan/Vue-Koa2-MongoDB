@@ -12,7 +12,11 @@
           class="login-form"
           @submit="handleSubmit"
         >
-          <a-form-item label="账户" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }">
+          <a-form-item
+            label="账户"
+            :label-col="{ span: 6 }"
+            :wrapper-col="{ span: 14 }"
+          >
             <a-input
               v-decorator="[
                 'userName',
@@ -26,10 +30,18 @@
               placeholder="用户名"
               allow-clear
             >
-              <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+              <a-icon
+                slot="prefix"
+                type="user"
+                style="color: rgba(0,0,0,.25)"
+              />
             </a-input>
           </a-form-item>
-          <a-form-item label="密码" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }">
+          <a-form-item
+            label="密码"
+            :label-col="{ span: 6 }"
+            :wrapper-col="{ span: 14 }"
+          >
             <a-input
               v-decorator="[
                 'password',
@@ -41,7 +53,11 @@
               placeholder="密码"
               allow-clear
             >
-              <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+              <a-icon
+                slot="prefix"
+                type="lock"
+                style="color: rgba(0,0,0,.25)"
+              />
             </a-input>
           </a-form-item>
           <a-form-item>
@@ -50,7 +66,8 @@
               type="primary"
               html-type="submit"
               class="login-form-button"
-            >登陆</a-button>
+              >登陆</a-button
+            >
           </a-form-item>
           <a-form-item class="bottom1">
             <div class="bottom">
@@ -71,29 +88,29 @@
   </div>
 </template>
 <script>
-import BGT from "@/components/3DBG/index";
+// import BGT from "@/components/3DBG/index";
 import resetpassword from "@/components/resetpassword/index";
 import { createNamespacedHelpers } from "vuex";
 const { mapMutations } = createNamespacedHelpers("nav");
 import router from "@/router";
-import routerlist from "@/router/routerlist";
+// import routerlist from "@/router/routerlist";
 import { resetRouter } from "@/router/index";
-import { getList } from "../../router/setRouter";
+import { concatrouter } from "@/router/concatrouter"; //生成路由表方法
 export default {
   components: {
-    BGT,
-    resetpassword,
+    // BGT,
+    resetpassword
   },
   data() {
     return {
       form: null,
-      show: true,
+      show: true
     };
   },
   methods: {
     aClick(type) {
       if (type == "登陆") {
-        // console.log(1);
+        // return false;
       } else if (type == "注册") {
         this.$router.push({ path: "/register" });
       } else if (type == "忘记密码") {
@@ -107,8 +124,7 @@ export default {
         if (!err) {
           let psd = values.password;
           let user = values.userName;
-          this.$api.login({ password: psd, userName: user }).then((res) => {
-            // console.log(res);
+          this.$api.login({ password: psd, userName: user }).then(res => {
             if (res.code === 200) {
               localStorage.setItem("token", res.token);
               localStorage.setItem("nav", res.jurisdiction);
@@ -117,10 +133,14 @@ export default {
               this.addnav(res.jurisdiction);
               this.$message.info("登陆成功", 2);
               this.show = false;
-              this.addnavlist(routerlist);
-              resetRouter(); //新建路由
-              router.addRoutes(routerlist); //压入动态路由
-              this.$router.push({ path: "/home/index" });
+              this.$api.getnavlist({ state: res.jurisdiction }).then(res => {
+                console.log(JSON.stringify(res.data));
+                localStorage.setItem("navlist", JSON.stringify(res.data));
+                this.addnavlist(concatrouter());
+                resetRouter(); //重置路由
+                router.addRoutes(concatrouter()); //添加新的路由表
+                this.$router.push({ path: "/home/index" });
+              });
             } else {
               this.$message.error(res.msg);
             }
@@ -130,15 +150,15 @@ export default {
     },
     ...mapMutations({
       addnav: "addnav",
-      addnavlist: "addnavlist",
-    }),
+      addnavlist: "addnavlist"
+    })
   },
   mounted() {
     this.form = this.$form.createForm(this, { name: "normal_login" });
   },
   created() {
     this.show = true;
-  },
+  }
 };
 </script>
 <style lang="less" scope>

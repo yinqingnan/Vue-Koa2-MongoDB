@@ -15,7 +15,11 @@
         <div>
           <h1>导航菜单风格设置</h1>
           <ul>
-            <li v-for="(item, index) in stylelist" :key="index" @click="stylesetting(index)">
+            <li
+              v-for="(item, index) in stylelist"
+              :key="index"
+              @click="stylesetting(index)"
+            >
               <img :src="item.path" alt />
               <a v-if="num == index">
                 <svg
@@ -39,7 +43,11 @@
         <div class="navlist">
           <h1>导航模式</h1>
           <ul>
-            <li v-for="(item, index) in navlist" :key="index" @click="navbtn(index)">
+            <li
+              v-for="(item, index) in navlist"
+              :key="index"
+              @click="navbtn(index)"
+            >
               <img :src="item.path" alt />
               <a v-if="navshow == index">
                 <svg
@@ -114,56 +122,56 @@ export default {
       navshow: 0,
       stylelist: [
         {
-          path: require("../../assets/svgimg/Coolblack.png"),
+          path: require("../../assets/svgimg/Coolblack.png")
         },
         {
-          path: require("../../assets/svgimg/heightlink.png"),
-        },
+          path: require("../../assets/svgimg/heightlink.png")
+        }
       ],
       navlist: [
         { path: require("../../assets/svgimg/left.png") },
-        { path: require("../../assets/svgimg/top.png") },
+        { path: require("../../assets/svgimg/top.png") }
       ],
       colorarr: [
         {
           color: "#188efb",
-          name: "佛晓蓝(默认)",
+          name: "佛晓蓝(默认)"
         },
         {
           color: "#f5222d",
-          name: "薄暮",
+          name: "薄暮"
         },
         {
           color: "#fa541c",
-          name: "火山",
+          name: "火山"
         },
         {
           color: "#f6aa14",
-          name: "日暮",
+          name: "日暮"
         },
         {
           color: "#13bfbf",
-          name: "明青",
+          name: "明青"
         },
         {
           color: "#51c11a",
-          name: "极光绿",
+          name: "极光绿"
         },
         {
           color: "#2e53e8",
-          name: "极客蓝",
+          name: "极客蓝"
         },
         {
           color: "#6e2dca",
-          name: "酱紫",
-        },
-      ],
+          name: "酱紫"
+        }
+      ]
     };
   },
   methods: {
     ...mapMutations({
       changenav: "changenav",
-      changenavcloor: "changenavcloor",
+      changenavcloor: "changenavcloor"
     }),
     afterVisibleChange(val) {
       console.log("visible", val);
@@ -208,12 +216,13 @@ export default {
         hide;
         window.less.modifyVars({
           "@primary-color": color,
+          "@primary-default": color
         });
         this.visible = false;
         this.$emit("close", 111);
       }, 2000);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" socpe>
