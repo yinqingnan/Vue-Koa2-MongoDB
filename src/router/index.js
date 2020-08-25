@@ -9,13 +9,13 @@ const routes = [
     path: "/",
     redirect: "/home/index"
   },
-  // {
-  //   path: "/home/index",
-  //   redirect: "/home/index",
-  //   component: () => {
-  //     "../view/home/index.vue";
-  //   }
-  // },
+  {
+    path: "/lockscreen",
+    name: "Lockscreen",
+    component: () => {
+      return import("@/view/Lockscreen/Lockscreen.vue");
+    }
+  },
   {
     path: "/login",
     name: "Login",
@@ -30,13 +30,13 @@ const routes = [
       return import("@/view/user/register.vue");
     }
   },
-  // {
-  //   path: "/test",
-  //   name: "Test",
-  //   component: () => {
-  //     return import("@/view/test.vue");
-  //   }
-  // },
+  {
+    path: "/test",
+    name: "Test",
+    component: () => {
+      return import("@/view/test.vue");
+    }
+  },
   {
     path: "/home/404",
     name: "404",

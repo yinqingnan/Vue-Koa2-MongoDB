@@ -46,7 +46,7 @@ _vue["default"].component(_antDesignVue.Button.name, _antDesignVue.Button);
 _vue["default"].use(_index3["default"]);
 
 _vue["default"].use(_index["default"]) //注册axiosAPI
-.use(_antDesignVue.Form).use(_antDesignVue.Input).use(_antDesignVue.Layout).use(_antDesignVue.Switch).use(_antDesignVue.Checkbox).use(_antDesignVue.Icon).use(_antDesignVue.Menu).use(_antDesignVue.Select).use(_antDesignVue.Modal).use(_antDesignVue.Drawer).use(_antDesignVue.message);
+.use(_antDesignVue.Form).use(_antDesignVue.Input).use(_antDesignVue.Badge).use(_antDesignVue.Layout).use(_antDesignVue.Avatar).use(_antDesignVue.Switch).use(_antDesignVue.Checkbox).use(_antDesignVue.Icon).use(_antDesignVue.Dropdown).use(_antDesignVue.Menu).use(_antDesignVue.Select).use(_antDesignVue.Modal).use(_antDesignVue.Drawer).use(_antDesignVue.Tooltip).use(_antDesignVue.Popconfirm).use(_antDesignVue.message);
 
 _vue["default"].prototype.$message = _antDesignVue.message; //全局注册message
 
@@ -57,9 +57,15 @@ _vue["default"].config.productionTip = false; //注册全局钩子用来拦截�
 _router["default"].beforeEach(function (to, from, next) {
   _nprogress["default"].start();
 
+  console.log(localStorage.getItem("lockpsd"));
+
   if (!localStorage.getItem("token")) {
     if (to.path !== "/login") {
       return next("/login");
+    }
+  } else if (localStorage.getItem("lockpsd")) {
+    if (to.path !== "/lockscreen") {
+      return next("/lockscreen");
     }
   } else {
     if (to.path !== "/login") {

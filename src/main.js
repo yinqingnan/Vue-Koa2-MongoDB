@@ -26,7 +26,12 @@ import {
   Layout,
   notification,
   Switch,
-  Drawer
+  Drawer,
+  Tooltip,
+  Badge,
+  Avatar,
+  Dropdown,
+  Popconfirm
 } from "ant-design-vue";
 
 Vue.component(Button.name, Button);
@@ -34,14 +39,19 @@ Vue.use(Loading);
 Vue.use(api) //注册axiosAPI
   .use(Form)
   .use(Input)
+  .use(Badge)
   .use(Layout)
+  .use(Avatar)
   .use(Switch)
   .use(Checkbox)
   .use(Icon)
+  .use(Dropdown)
   .use(Menu)
   .use(Select)
   .use(Modal)
   .use(Drawer)
+  .use(Tooltip)
+  .use(Popconfirm)
   .use(message);
 Vue.prototype.$message = message; //全局注册message
 Vue.prototype.$notification = notification; //全局注册message
@@ -50,9 +60,14 @@ Vue.config.productionTip = false;
 //注册全局钩子用来拦截登陆导航
 router.beforeEach(function(to, from, next) {
   NProgress.start();
+  console.log(localStorage.getItem("lockpsd"));
   if (!localStorage.getItem("token")) {
     if (to.path !== "/login") {
       return next("/login");
+    }
+  } else if (localStorage.getItem("lockpsd")) {
+    if (to.path !== "/lockscreen") {
+      return next("/lockscreen");
     }
   } else {
     if (to.path !== "/login") {

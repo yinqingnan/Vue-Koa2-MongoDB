@@ -13,7 +13,12 @@ export function concatrouter() {
         return import("@/view/home/index.vue");
       },
       children: arr
+    },
+    {
+      path: "*",
+      redirect: "/home/404"
     }
   ];
+  // console.log(routers);
   return routers;
 }

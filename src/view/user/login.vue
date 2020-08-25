@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <BGT ref="child" /> -->
+    <BGT ref="child" />
     <div class="box">
       <div class="Popup">
         <h1>
@@ -88,7 +88,7 @@
   </div>
 </template>
 <script>
-// import BGT from "@/components/3DBG/index";
+import BGT from "@/components/3DBG/index";
 import resetpassword from "@/components/resetpassword/index";
 import { createNamespacedHelpers } from "vuex";
 const { mapMutations } = createNamespacedHelpers("nav");
@@ -98,7 +98,7 @@ import { resetRouter } from "@/router/index";
 import { concatrouter } from "@/router/concatrouter"; //生成路由表方法
 export default {
   components: {
-    // BGT,
+    BGT,
     resetpassword
   },
   data() {
@@ -134,7 +134,7 @@ export default {
               this.$message.info("登陆成功", 2);
               this.show = false;
               this.$api.getnavlist({ state: res.jurisdiction }).then(res => {
-                console.log(JSON.stringify(res.data));
+                // console.log(JSON.stringify(res.data));
                 localStorage.setItem("navlist", JSON.stringify(res.data));
                 this.addnavlist(concatrouter());
                 resetRouter(); //重置路由
@@ -174,6 +174,18 @@ export default {
   position: relative;
 
   .Popup {
+    padding-top: 66px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    -webkit-box-shadow: 15px 18px 22px -13px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 15px 18px 22px -13px rgba(0, 0, 0, 0.75);
+    box-shadow: 15px 18px 22px -13px rgba(0, 0, 0, 0.75);
+    position: absolute;
+    display: block;
+    width: 410px;
+    top: calc(~"50% - 200px");
+    left: calc(~"50% - 200px");
+    height: 400px;
     h1 {
       font-size: 18px;
       text-align: center;
@@ -182,12 +194,7 @@ export default {
       }
       // color: @primary-color;
     }
-    position: absolute;
-    display: block;
-    width: 410px;
-    top: calc(~"50% - 200px");
-    left: calc(~"50% - 200px");
-    height: 400px;
+
     .ant-form-item {
       display: flex !important;
     }

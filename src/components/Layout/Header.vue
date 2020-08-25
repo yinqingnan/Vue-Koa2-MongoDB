@@ -1,8 +1,10 @@
 <template>
   <div>
     <a-layout-header style="background: #fff; padding: 0;overflow: hidden; ">
-      <!-- <div class="header"> -->
-      <div :class="('header', { bg: theme == 'dark' })">
+      <div
+        :class="('header', { bg: theme == 'dark' })"
+        style=" display: flex;  justify-content: space-between;padding: 0 20px;"
+      >
         <h2 v-if="leftnav">
           <a-icon
             class="trigger"
@@ -16,6 +18,7 @@
           @click="select"
           v-if="topnav"
           :theme="theme"
+          style="width:70%;padding-top: 19px;"
         >
           <template v-for="item in list">
             <a-menu-item v-if="!item.children" :key="item.key">
@@ -33,8 +36,8 @@
             <subMenu v-else :key="item.id" :menu-info="item" />
           </template>
         </a-menu>
-        <div>
-          <!-- <h2>头部操作部分</h2> -->
+        <div style="width:15%" :class="{ bg: theme == 'dark' }">
+          <headerright></headerright>
         </div>
       </div>
     </a-layout-header>
@@ -42,10 +45,11 @@
 </template>
 <script>
 import subMenu from "@/components/Layout/SiderMenu/index";
+import headerright from "../../components/Smallcomponent/headerright";
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapMutations } = createNamespacedHelpers("systemconfig");
 export default {
-  components: { subMenu },
+  components: { subMenu, headerright },
   data() {
     return {
       current: ["1"],
@@ -92,13 +96,23 @@ export default {
 .header {
   padding: 0 20px;
   display: flex;
-  // padding-top: 18px;
-  justify-content: space-between;
+
   > div {
     width: 30%;
+    h2 {
+      color: #fff;
+    }
   }
   ul {
     margin-top: 18px;
+  }
+}
+.bg {
+  // background: #001529 !important;
+  div {
+    h2 {
+      color: #999;
+    }
   }
 }
 </style>

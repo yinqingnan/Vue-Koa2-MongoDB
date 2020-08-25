@@ -2,7 +2,7 @@
   <div>
     <!-- 用于全局设置的抽屉 -->
     <a-drawer
-      title="主题样式设置"
+      title="个性化设置"
       placement="right"
       :closable="false"
       :visible="visible"
@@ -13,7 +13,7 @@
     >
       <div class="drawer">
         <div>
-          <h1>导航菜单风格设置</h1>
+          <h1>导航菜单主题颜色设置</h1>
           <ul>
             <li
               v-for="(item, index) in stylelist"
@@ -41,7 +41,7 @@
           </ul>
         </div>
         <div class="navlist">
-          <h1>导航模式</h1>
+          <h1>导航模式选择</h1>
           <ul>
             <li
               v-for="(item, index) in navlist"
@@ -71,28 +71,33 @@
         <div class="colorlist">
           <h1>主题色配置</h1>
           <ul>
-            <li
-              v-for="(item, index) in colorarr"
-              :key="index"
-              :style="{ background: item.color }"
-              @click="cloorlist(index, item.color)"
-            >
-              <span v-if="colorshow == index">
-                <svg
-                  viewBox="64 64 896 896"
-                  focusable="false"
-                  class
-                  data-icon="check"
-                  width="1em"
-                  height="1em"
-                  fill="currentColor"
-                  aria-hidden="true"
+            <li v-for="(item, index) in colorarr" :key="index">
+              <a-tooltip>
+                <template slot="title">
+                  {{ item.name }}
+                </template>
+                <div
+                  :style="{ background: item.color }"
+                  @click="cloorlist(index, item.color)"
                 >
-                  <path
-                    d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 00-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
-                  />
-                </svg>
-              </span>
+                  <span v-if="colorshow == index">
+                    <svg
+                      viewBox="64 64 896 896"
+                      focusable="false"
+                      class
+                      data-icon="check"
+                      width="1em"
+                      height="1em"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 00-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </a-tooltip>
             </li>
           </ul>
         </div>
@@ -190,14 +195,18 @@ export default {
       this.$emit("close", "header", checked);
     },
     stylesetting(index) {
-      this.$message.success("正在修改菜单主题风格", 2);
-      setTimeout(() => {
-        this.visible = false;
-        this.$emit("close", 111);
-        this.changenavcloor(index);
-      }, 2000);
+      if (this.navshow == 1) {
+        this.$message.warn("请先切换为左侧导航模式", 2);
+      } else {
+        this.$message.success("正在修改菜单主题风格", 2);
+        setTimeout(() => {
+          this.visible = false;
+          this.$emit("close", 111);
+          this.changenavcloor(index);
+        }, 2000);
 
-      this.num = index;
+        this.num = index;
+      }
     },
     navbtn(index) {
       this.$message.success("正在切换导航位置", 2);
@@ -205,6 +214,7 @@ export default {
         this.visible = false;
         this.$emit("close", 111);
         this.changenav(index);
+        this.num = 1;
       }, 2000);
 
       this.navshow = index;
@@ -264,14 +274,15 @@ export default {
     display: flex;
     justify-content: space-between;
     li {
-      width: 20px;
-      height: 20px;
-      //   background: red;
-      position: relative;
-      span {
-        position: absolute;
-        top: 1px;
-        left: 2px;
+      div {
+        width: 20px;
+        height: 20px;
+        position: relative;
+        span {
+          position: absolute;
+          top: 1px;
+          left: 2px;
+        }
       }
     }
   }

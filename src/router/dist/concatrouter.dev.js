@@ -26,6 +26,10 @@ function concatrouter() {
       });
     },
     children: arr
-  }];
+  }, {
+    path: "*",
+    redirect: "/home/404"
+  }]; // console.log(routers);
+
   return routers;
 }

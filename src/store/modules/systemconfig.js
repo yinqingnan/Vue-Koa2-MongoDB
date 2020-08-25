@@ -17,6 +17,7 @@ const mutations = {
     } else {
       state.leftnav = false;
       state.topnav = true;
+      state.theme = "light";
     }
   },
   [CHANGENAVCLOOR](state, data) {

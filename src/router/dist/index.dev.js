@@ -24,14 +24,15 @@ _vue["default"].use(_vueRouter["default"]);
 var routes = [{
   path: "/",
   redirect: "/home/index"
-}, // {
-//   path: "/home/index",
-//   redirect: "/home/index",
-//   component: () => {
-//     "../view/home/index.vue";
-//   }
-// },
-{
+}, {
+  path: "/lockscreen",
+  name: "Lockscreen",
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require("@/view/Lockscreen/Lockscreen.vue"));
+    });
+  }
+}, {
   path: "/login",
   name: "Login",
   component: function component() {
@@ -47,14 +48,15 @@ var routes = [{
       return _interopRequireWildcard(require("@/view/user/register.vue"));
     });
   }
-}, // {
-//   path: "/test",
-//   name: "Test",
-//   component: () => {
-//     return import("@/view/test.vue");
-//   }
-// },
-{
+}, {
+  path: "/test",
+  name: "Test",
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require("@/view/test.vue"));
+    });
+  }
+}, {
   path: "/home/404",
   name: "404",
   // redirect: "/404",
