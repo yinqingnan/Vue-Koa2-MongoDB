@@ -126,10 +126,10 @@ export default {
   }
   a {
     display: inline-block;
-    font-size: 696px;
+    font-size: 724px;
     position: absolute;
-    top: -507px;
-    left: -50px;
+    top: -503px;
+    left: -58px;
     z-index: -1;
   }
 }
