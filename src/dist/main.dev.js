@@ -20,6 +20,10 @@ var _nprogress = _interopRequireDefault(require("nprogress"));
 
 require("nprogress/nprogress.css");
 
+var _kFormDesign = _interopRequireDefault(require("k-form-design"));
+
+require("k-form-design/lib/k-form-design.css");
+
 var _antDesignVue = require("ant-design-vue");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -29,6 +33,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+_vue["default"].use(_kFormDesign["default"]);
 
 _nprogress["default"].inc(0.2);
 
@@ -46,7 +52,8 @@ _vue["default"].component(_antDesignVue.Button.name, _antDesignVue.Button);
 _vue["default"].use(_index3["default"]);
 
 _vue["default"].use(_index["default"]) //注册axiosAPI
-.use(_antDesignVue.Form).use(_antDesignVue.Input).use(_antDesignVue.Badge).use(_antDesignVue.Layout).use(_antDesignVue.Avatar).use(_antDesignVue.Switch).use(_antDesignVue.Checkbox).use(_antDesignVue.Icon).use(_antDesignVue.Dropdown).use(_antDesignVue.Menu).use(_antDesignVue.Select).use(_antDesignVue.Modal).use(_antDesignVue.Drawer).use(_antDesignVue.Tooltip).use(_antDesignVue.Popconfirm).use(_antDesignVue.message);
+.use(_antDesignVue.Form).use(_antDesignVue.Input).use(_antDesignVue.Badge).use(_antDesignVue.Layout).use(_antDesignVue.Avatar).use(_antDesignVue.Switch).use(_antDesignVue.Checkbox).use(_antDesignVue.Icon).use(_antDesignVue.Dropdown).use(_antDesignVue.Menu).use(_antDesignVue.Select).use(_antDesignVue.Modal).use(_antDesignVue.Drawer).use(_antDesignVue.Tooltip).use(_antDesignVue.Popconfirm) // .use(draggable)
+.use(_antDesignVue.message);
 
 _vue["default"].prototype.$message = _antDesignVue.message; //全局注册message
 
@@ -55,9 +62,8 @@ _vue["default"].prototype.$notification = _antDesignVue.notification; //全局�
 _vue["default"].config.productionTip = false; //注册全局钩子用来拦截登陆导航
 
 _router["default"].beforeEach(function (to, from, next) {
-  _nprogress["default"].start();
+  _nprogress["default"].start(); // console.log(localStorage.getItem("lockpsd"));
 
-  console.log(localStorage.getItem("lockpsd"));
 
   if (!localStorage.getItem("token")) {
     if (to.path !== "/login") {

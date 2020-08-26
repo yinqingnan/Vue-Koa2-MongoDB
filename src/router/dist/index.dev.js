@@ -66,15 +66,6 @@ var routes = [{
     });
   }
 }, {
-  path: "/home/403",
-  name: "403",
-  // redirect: "/403",
-  component: function component() {
-    return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require("@/view/Error/error403.vue"));
-    });
-  }
-}, {
   path: "/home/500",
   name: "500",
   // redirect: "/500",

@@ -9,6 +9,11 @@ import { concatrouter } from "@/router/concatrouter"; //生成路由表方法
 import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
+
+// import draggable from "vuedraggable"; //拖拽组件
+import KFormDesign from "k-form-design"; //拖拽表单生成
+import "k-form-design/lib/k-form-design.css";
+Vue.use(KFormDesign);
 NProgress.inc(0.2);
 NProgress.configure({ easing: "ease", speed: 200, showSpinner: false });
 Vue.use(NProgress);
@@ -52,6 +57,7 @@ Vue.use(api) //注册axiosAPI
   .use(Drawer)
   .use(Tooltip)
   .use(Popconfirm)
+  // .use(draggable)
   .use(message);
 Vue.prototype.$message = message; //全局注册message
 Vue.prototype.$notification = notification; //全局注册message
@@ -60,7 +66,7 @@ Vue.config.productionTip = false;
 //注册全局钩子用来拦截登陆导航
 router.beforeEach(function(to, from, next) {
   NProgress.start();
-  console.log(localStorage.getItem("lockpsd"));
+  // console.log(localStorage.getItem("lockpsd"));
   if (!localStorage.getItem("token")) {
     if (to.path !== "/login") {
       return next("/login");

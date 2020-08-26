@@ -39,7 +39,6 @@ export default {
   mounted() {},
   methods: {
     login() {
-      console.log(this.value === this.lockpsd);
       if (this.value === this.lockpsd) {
         localStorage.setItem("lockpsd", "");
         this.$router.push({ path: this.currentrouter });

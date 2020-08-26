@@ -12,10 +12,12 @@
     "babel-plugin-import": "^1.11.2",
     "core-js": "^2.6.5",
     "js-md5": "^0.7.3",
+    "k-form-design": "^3.6.1",
     "nprogress": "^0.2.0",
     "sass-loader": "^9.0.3",
     "three": "^0.119.1",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vuedraggable": "^2.24.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",

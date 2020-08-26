@@ -45,14 +45,7 @@ const routes = [
       return import("@/view/Error/error404.vue");
     }
   },
-  {
-    path: "/home/403",
-    name: "403",
-    // redirect: "/403",
-    component: () => {
-      return import("@/view/Error/error403.vue");
-    }
-  },
+
   {
     path: "/home/500",
     name: "500",

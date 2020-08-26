@@ -112,11 +112,16 @@
           <a-button key="back" @click="handleCancel">
             取消
           </a-button>
-          <a-button key="submit" type="primary" @click="handleOk">
+          <a-button key="submit" type="primary" @click.enter="handleOk">
             锁屏
           </a-button>
         </template>
-        <a-input type="password" placeholder="输入锁屏密码" v-model="value" />
+        <a-input
+          type="password"
+          placeholder="输入锁屏密码"
+          v-model="value"
+          focus
+        />
       </a-modal>
     </div>
   </div>
@@ -177,15 +182,18 @@ export default {
     },
     handleOk() {
       console.log(this.value);
-
       if (this.value != "") {
-        setTimeout(() => {
-          localStorage.setItem("currentrouter", this.$route.fullPath); // 将当前路由保存到localStorage
-          localStorage.setItem("lockpsd", this.value); //保存锁屏密码
-          this.$router.push({ path: "/lockscreen" });
-          this.visible = false;
-          this.value = "";
-        }, 1000);
+        if (this.value.length < 2) {
+          this.$message.warning("锁屏密码最少3位", 2);
+        } else {
+          setTimeout(() => {
+            localStorage.setItem("currentrouter", this.$route.fullPath); // 将当前路由保存到localStorage
+            localStorage.setItem("lockpsd", this.value); //保存锁屏密码
+            this.$router.push({ path: "/lockscreen" });
+            this.visible = false;
+            this.value = "";
+          }, 1000);
+        }
       } else {
         this.$message.warning("锁屏密码不能为空", 2);
       }

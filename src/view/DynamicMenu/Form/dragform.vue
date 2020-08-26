@@ -1,5 +1,5 @@
 <template>
   <div>
-    拖拽式表单
+    <k-form-design />
   </div>
 </template>
