@@ -20,10 +20,6 @@ var _nprogress = _interopRequireDefault(require("nprogress"));
 
 require("nprogress/nprogress.css");
 
-var _kFormDesign = _interopRequireDefault(require("k-form-design"));
-
-require("k-form-design/lib/k-form-design.css");
-
 var _antDesignVue = require("ant-design-vue");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -34,8 +30,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-_vue["default"].use(_kFormDesign["default"]);
-
+// import VueQuillEditor from "vue-quill-editor";
+// import "quill/dist/quill.core.css";
+// import "quill/dist/quill.snow.css";
+// import "quill/dist/quill.bubble.css";
+// Vue.use(VueQuillEditor);
 _nprogress["default"].inc(0.2);
 
 _nprogress["default"].configure({
@@ -52,7 +51,7 @@ _vue["default"].component(_antDesignVue.Button.name, _antDesignVue.Button);
 _vue["default"].use(_index3["default"]);
 
 _vue["default"].use(_index["default"]) //注册axiosAPI
-.use(_antDesignVue.Form).use(_antDesignVue.Input).use(_antDesignVue.Badge).use(_antDesignVue.Layout).use(_antDesignVue.Avatar).use(_antDesignVue.Switch).use(_antDesignVue.Checkbox).use(_antDesignVue.Icon).use(_antDesignVue.Dropdown).use(_antDesignVue.Menu).use(_antDesignVue.Select).use(_antDesignVue.Modal).use(_antDesignVue.Drawer).use(_antDesignVue.Tooltip).use(_antDesignVue.Popconfirm) // .use(draggable)
+.use(_antDesignVue.Form).use(_antDesignVue.Input).use(_antDesignVue.TimePicker).use(_antDesignVue.DatePicker).use(_antDesignVue.Upload).use(_antDesignVue.Badge).use(_antDesignVue.Col).use(_antDesignVue.Layout).use(_antDesignVue.Avatar).use(_antDesignVue.Row).use(_antDesignVue.Switch).use(_antDesignVue.Checkbox).use(_antDesignVue.Icon).use(_antDesignVue.Dropdown).use(_antDesignVue.Menu).use(_antDesignVue.Select).use(_antDesignVue.Modal).use(_antDesignVue.Drawer).use(_antDesignVue.Tooltip).use(_antDesignVue.Popconfirm) // .use(draggable)
 .use(_antDesignVue.message);
 
 _vue["default"].prototype.$message = _antDesignVue.message; //全局注册message

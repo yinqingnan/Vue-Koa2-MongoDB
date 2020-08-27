@@ -146,7 +146,7 @@ export default {
 }
 .box {
   width: 100%;
-  height: 100vh;
+  // height: 100vh;
   background: @skyblue;
   overflow: hidden;
   position: relative;

@@ -13,6 +13,7 @@ const jwtKoa = require("koa-jwt"); //引入token工具
 // 导入路由配置信息
 const index = require("./routes/index");
 const user = require("./routes/user");
+const article = require("./routes/article");
 
 const cors = require("koa-cors"); // CORS是一个W3C标准，全称是"跨域资源共享" 用来解决前端的跨域
 app.use(cors()); //全部允许跨域
@@ -28,6 +29,7 @@ app.use(
     // 设置接口，可以不需要认证访问
     path: [
       /^\/json/,
+      /^\/uploadimg/,
       /^\/api\/login/,
       /^\/api\/register/,
       /^\/api\/getlist/,
@@ -66,7 +68,7 @@ app.use(async (ctx, next) => {
 // 注册routes
 app.use(index.routes(), index.allowedMethods());
 app.use(user.routes(), user.allowedMethods());
-
+app.use(article.routes(), article.allowedMethods());
 // error - handling;
 app.on("error", (err, ctx) => {
   console.error("server error", err, ctx);

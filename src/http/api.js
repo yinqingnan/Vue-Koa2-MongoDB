@@ -13,7 +13,8 @@ import "ant-design-vue/lib/message/style";
 // import store from "../store/index";
 // import router from "../router/index";
 
-export const http = "http://123.57.181.73:3000/"; //阿里云服务器开发环境
+// export const http = "http://123.57.181.73:3000/"; //阿里云服务器开发环境
+export const http = "http://127.0.0.1:3000/"; //本地开发环境
 
 let iTime;
 /**

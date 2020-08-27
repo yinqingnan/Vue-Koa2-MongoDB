@@ -126,7 +126,7 @@ export default {
   }
   a {
     display: inline-block;
-    font-size: 724px;
+    font-size: 694px;
     position: absolute;
     top: -503px;
     left: -58px;

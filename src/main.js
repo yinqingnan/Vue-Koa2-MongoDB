@@ -10,10 +10,12 @@ import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
 
-// import draggable from "vuedraggable"; //拖拽组件
-import KFormDesign from "k-form-design"; //拖拽表单生成
-import "k-form-design/lib/k-form-design.css";
-Vue.use(KFormDesign);
+// import VueQuillEditor from "vue-quill-editor";
+// import "quill/dist/quill.core.css";
+// import "quill/dist/quill.snow.css";
+// import "quill/dist/quill.bubble.css";
+// Vue.use(VueQuillEditor);
+
 NProgress.inc(0.2);
 NProgress.configure({ easing: "ease", speed: 200, showSpinner: false });
 Vue.use(NProgress);
@@ -21,6 +23,8 @@ Vue.use(NProgress);
 import {
   Button,
   Form,
+  Row,
+  Col,
   Input,
   Checkbox,
   Icon,
@@ -35,7 +39,10 @@ import {
   Tooltip,
   Badge,
   Avatar,
+  Upload,
   Dropdown,
+  TimePicker,
+  DatePicker,
   Popconfirm
 } from "ant-design-vue";
 
@@ -44,9 +51,14 @@ Vue.use(Loading);
 Vue.use(api) //注册axiosAPI
   .use(Form)
   .use(Input)
+  .use(TimePicker)
+  .use(DatePicker)
+  .use(Upload)
   .use(Badge)
+  .use(Col)
   .use(Layout)
   .use(Avatar)
+  .use(Row)
   .use(Switch)
   .use(Checkbox)
   .use(Icon)
