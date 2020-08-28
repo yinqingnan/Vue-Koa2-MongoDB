@@ -40,7 +40,8 @@ app.use(jwtKoa({
   secret: secret
 }).unless({
   // 设置接口，可以不需要认证访问
-  path: [/^\/images/, /^\/uploadimg/, /^\/api\/login/, /^\/api\/register/, /^\/api\/getlist/, /^\/api\/getcode/, /^\/api\/resetpsd/, /^\/api\/verification/ // /^((?!\/api).)*$/ // 设置除了私有接口外的其它资源，可以不需要认证访问
+  path: [/^\/images\/Background/, //配置访问图片不需要token
+  /^\/uploadimg/, /^\/api\/login/, /^\/api\/register/, /^\/api\/getlist/, /^\/api\/getcode/, /^\/api\/resetpsd/, /^\/api\/verification/ // /^((?!\/api).)*$/ // 设置除了私有接口外的其它资源，可以不需要认证访问
   ]
 })); // 接收参数类型定义
 

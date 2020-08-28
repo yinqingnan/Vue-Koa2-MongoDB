@@ -44,7 +44,7 @@ export default {
         },
         {
           type: "imgupload",
-          title: "图片上传",
+          title: "标题背景图片",
           code: "IMG",
           placeholder: "",
           rule: [{}],
@@ -57,22 +57,38 @@ export default {
           title: "创建时间",
           code: "date",
           placeholder: "请选择时间",
-          rule: [{}],
+          rule: [{ required: true, message: "必填项不能为空！" }],
           iVal: moment(),
           display: true,
           disabled: false
         },
         {
-          type: "input",
+          type: "select",
           title: "关键词tag",
           code: "tag",
           placeholder: "请输入关键词tag",
           rule: [{ required: true, message: "必填项不能为空！" }],
           iVal: "",
+          data: [
+            {
+              name: "vue"
+            },
+            {
+              name: "react"
+            },
+            {
+              name: "serve服务器相关"
+            },
+            {
+              name: "小程序"
+            },
+            {
+              name: "其他"
+            }
+          ],
           display: true,
           disabled: false
         },
-
         {
           type: "text",
           long: "long",
@@ -87,8 +103,8 @@ export default {
           type: "editor",
           title: "内容",
           code: "content",
-          placeholder: "",
-          rule: [{}],
+          placeholder: "请输入文章内容",
+          rule: [{ required: true, message: "必填项不能为空！" }],
           iVal: "",
           display: true,
           disabled: false
@@ -106,13 +122,23 @@ export default {
   mounted() {},
   methods: {
     FormChang(val, type) {
-      console.log(val, type);
+      // console.log(val, type);
       this.dList.forEach(element => {
         //重置富文本编辑器默认内容
         if (element.type == "editor") {
           element.iVal = "";
         }
       });
+      if (type == "save") {
+        // 保存到服务器数据
+        // val.date.format("YYYY-MM-DD"); //整理日期格式;
+        // this.$api.ArticleSave(val).then(res => {
+        //   console.log(res);
+        // });
+        this.$api.Article123123(val).then(res => {
+          console.log(res);
+        });
+      }
     }
   }
 };

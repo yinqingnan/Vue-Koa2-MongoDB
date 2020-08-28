@@ -1,4 +1,4 @@
-const Koa = require("koa");
+﻿const Koa = require("koa");
 const app = new Koa();
 const views = require("koa-views");
 const json = require("koa-json");
@@ -28,7 +28,7 @@ app.use(
   jwtKoa({ secret: secret }).unless({
     // 设置接口，可以不需要认证访问
     path: [
-      /^\/images/,
+      /^\/images\/Background/, //配置访问图片不需要token
       /^\/uploadimg/,
       /^\/api\/login/,
       /^\/api\/register/,

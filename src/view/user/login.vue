@@ -83,6 +83,7 @@
 
         <!-- 重置密码框 -->
         <resetpassword ref="resetpsd"></resetpassword>
+        <registerbox ref="registerbox" />
       </div>
     </div>
   </div>
@@ -96,9 +97,11 @@ import router from "@/router";
 // import routerlist from "@/router/routerlist";
 import { resetRouter } from "@/router/index";
 import { concatrouter } from "@/router/concatrouter"; //生成路由表方法
+import registerbox from "./register";
 export default {
   components: {
     BGT,
+    registerbox,
     resetpassword
   },
   data() {
@@ -112,7 +115,8 @@ export default {
       if (type == "登陆") {
         // return false;
       } else if (type == "注册") {
-        this.$router.push({ path: "/register" });
+        // this.$router.push({ path: "/register" });
+        this.$refs.registerbox.showModal();
       } else if (type == "忘记密码") {
         this.$refs.resetpsd.showModal();
       }

@@ -2,7 +2,7 @@
   <div class="model" :style="{ height: FrameHeght }">
     <!-- :style="{ height: FrameHeght }" -->
     <!-- {{ dList }} -->
-    <a-form :form="form" @submit="handleSubmit">
+    <a-form :form="form">
       <a-row :gutter="48">
         <a-col
           :xs="wrapCol.xs"
@@ -294,9 +294,11 @@
             :wrapperCol="wrapperCol"
             v-if="item.type == 'text'"
             style="margin-left:-10px;margin-right:0"
+            allowClear
           >
             <a-textarea
-              style="display: flex;"
+              style="display: flex;height:120px !important;overflow-y:auto;resize: none;"
+              allowClear
               v-decorator="[
                 item.code,
                 {
@@ -317,7 +319,7 @@
             <a-button @click="handleReset" style="margin-right:10px"
               >取消</a-button
             >
-            <a-button type="primary" html-type="submit">确定</a-button>
+            <a-button type="primary" @click="handleSubmit">确定</a-button>
           </a-form-item>
         </a-col>
       </a-row>
@@ -370,16 +372,17 @@ export default {
         if (!err) {
           this.$refs.isUpImg[0].handleUpload();
           setTimeout(() => {
+            console.log(this.imgurl);
             values.imgUrl = this.imgurl;
             values.id = this.randomID();
             this.$emit("FormChang", values, "save");
             this.reset(); //resetform
-            // console.log(this.$refs.editor)
           }, 500);
         }
       });
     },
 
+    // eslint-disable-next-line no-unused-vars
     getCurrentStyle(current, today) {
       const style = {};
       if (current.date() === 1) {
@@ -394,7 +397,9 @@ export default {
     changeVal(val, type) {
       console.log(val, type);
     },
+    // eslint-disable-next-line no-unused-vars
     datachang(val, type) {
+      // console.log(val);
       this.imgurl = val;
     },
     randomID() {
@@ -406,29 +411,30 @@ export default {
     }
   },
   mounted() {
-    const that = this;
-    that.height = document.body.clientHeight;
-    that.FrameHeght = that.height - 175 + "px";
-    window.onresize = () => {
-      return (() => {
-        that.height = document.body.clientHeight;
-        that.FrameHeght = that.height - 175 + "px";
-      })();
-    };
+    // const that = this;
+    // that.height = document.body.clientHeight;
+    // that.FrameHeght = that.height - 175 + "px";
+    // window.onresize = () => {
+    //   return (() => {
+    //     that.height = document.body.clientHeight;
+    //     that.FrameHeght = that.height - 175 + "px";
+    //   })();
+    // };
   },
   watch: {
-    height(val) {
-      if (!this.timer) {
-        // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
-        this.timer = true;
-        let that = this;
-        setTimeout(function() {
-          // 打印screenWidth变化的值
-          that.FrameHeght = that.height - 175 + "px";
-          that.timer = false;
-        }, 400);
-      }
-    }
+    // eslint-disable-next-line no-unused-vars
+    // height(val) {
+    //   if (!this.timer) {
+    //     // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
+    //     this.timer = true;
+    //     let that = this;
+    //     setTimeout(function() {
+    //       // 打印screenWidth变化的值
+    //       that.FrameHeght = that.height - 175 + "px";
+    //       that.timer = false;
+    //     }, 400);
+    //   }
+    // }
   }
 };
 </script>
@@ -458,7 +464,7 @@ export default {
 }
 .model {
   padding-left: 50px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .model .ant-col .ant-form-item-label {

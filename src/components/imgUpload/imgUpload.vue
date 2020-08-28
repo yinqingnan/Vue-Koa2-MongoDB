@@ -22,7 +22,6 @@ export default {
   methods: {
     handleRemove(file) {
       // 点击删除文件后
-      console.log(file);
       const index = this.fileList.indexOf(file);
       const newFileList = this.fileList.slice();
       newFileList.splice(index, 1);
@@ -46,20 +45,18 @@ export default {
           formData.append("file", file);
         });
         axios({
-          url: "http://127.0.0.1:3000/uploadimg",
+          url: "http://123.57.181.73:3000/uploadimg",
           method: "post",
           processData: false,
           enctype: "multipart/form-data",
           data: formData
         }).then(res => {
-          console.log(res.data.path);
-          var path = res.data.path;
-          this.$emit("datachang", path, "url");
+          // console.log(res.data.path);
+          this.$emit("datachang", res.data.path, "url");
           this.fileList = [];
         });
       } else {
-        var path = "";
-        this.$emit("datachang", path, "url");
+        this.$emit("datachang", "", "url");
       }
     },
     preview(file) {

@@ -10,10 +10,11 @@ import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
 
-// 默认语言为 en-US，如果你需要设置其他语言，推荐在入口文件全局设置 locale
-import moment from "moment";
-import "moment/locale/zh-cn";
-moment.locale("zh-cn");
+// import VueQuillEditor from "vue-quill-editor";
+// import "quill/dist/quill.core.css";
+// import "quill/dist/quill.snow.css";
+// import "quill/dist/quill.bubble.css";
+// Vue.use(VueQuillEditor);
 
 NProgress.inc(0.2);
 NProgress.configure({ easing: "ease", speed: 200, showSpinner: false });

@@ -1,172 +1,171 @@
 <template>
   <div>
-    <BGT v-if="show" ref="child" />
-    <div class="box">
-      <div class="Popup">
-        <h1><a @click.prevent="aClick('登陆')">注册用户</a></h1>
-        <a-form
-          autoComplete="off"
-          id="components-form-demo-normal-login"
-          :form="form"
-          class="login-form"
-          @submit="handleSubmit"
-        >
-          <a-form-item :label-col="{ span: 6 }" :wrapper-col="{ span: 24 }">
-            <a-input
-              class="inpuheight"
-              v-decorator="[
-                'userName',
-                {
-                  rules: [
-                    { required: true, message: '请输入用户名称!' },
-                    {
-                      min: 2,
-                      max: 10,
-                      message: '请输入至少2位!'
-                    }
-                  ]
-                }
-              ]"
-              placeholder="用户名称"
-            >
-              <a-icon
-                slot="prefix"
-                type="user"
-                style="color: rgba(0,0,0,.25)"
-              />
-            </a-input>
-          </a-form-item>
-          <a-form-item :label-col="{ span: 6 }" :wrapper-col="{ span: 24 }">
-            <a-input
-              class="inpuheight"
-              v-decorator="[
-                'passwordOne',
-                {
-                  rules: [
-                    { required: true, message: '请输入密码!' },
-                    { min: 6, message: '请输入至少6位密码,区分大小写!' },
-                    { validator: validatePass }
-                  ]
-                }
-              ]"
-              type="password"
-              placeholder="至少6位密码，区分大小写"
-              name="passwordOne"
-            >
-              <a-icon
-                slot="prefix"
-                type="lock"
-                style="color: rgba(0,0,0,.25)"
-              />
-            </a-input>
-          </a-form-item>
-          <a-form-item :label-col="{ span: 6 }" :wrapper-col="{ span: 24 }">
-            <a-input
-              class="inpuheight"
-              v-decorator="[
-                'passwordTwo',
-                {
-                  rules: [
-                    { required: true, message: '请再次确认密码!' },
-                    {
-                      min: 6,
-                      max: 20,
-                      message: '请输入至少6位-最多20位,区分大小写!'
-                    },
-                    { validator: validatePass2 }
-                  ]
-                }
-              ]"
-              name="passwordTwo"
-              type="password"
-              placeholder="确认密码"
-            >
-              <a-icon
-                slot="prefix"
-                type="lock"
-                style="color: rgba(0,0,0,.25)"
-              />
-            </a-input>
-          </a-form-item>
-          <a-form-item
-            :label-col="{ span: 6 }"
-            :wrapper-col="{ span: 24 }"
-            class="layout"
+    <a-modal v-model="visible" title="新用户注册" @ok="handleOk" :footer="null">
+      <div class="registerbox">
+        <div class="Popup">
+          <!-- <h1><a @click.prevent="aClick('登陆')">注册用户</a></h1> -->
+          <a-form
+            autoComplete="off"
+            id="components-form-demo-normal-login"
+            :form="form"
+            class="login-form"
+            @submit="handleSubmit"
           >
-            <a-input
-              v-decorator="[
-                'phone',
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '11位手机号码'
-                    },
-                    { validator: phoneCheck }
-                  ]
-                }
-              ]"
-              placeholder="11位手机号码"
-              style="width: 100%"
-            >
-              <a-select
-                slot="addonBefore"
-                v-decorator="['prefix', { initialValue: '86' }]"
-                style="width: 70px"
-                @change="handleChange"
+            <a-form-item :label-col="{ span: 6 }" :wrapper-col="{ span: 24 }">
+              <a-input
+                class="inpuheight"
+                v-decorator="[
+                  'userName',
+                  {
+                    rules: [
+                      { required: true, message: '请输入用户名称!' },
+                      {
+                        min: 2,
+                        max: 10,
+                        message: '请输入至少2位!'
+                      }
+                    ]
+                  }
+                ]"
+                placeholder="用户名称"
               >
-                <a-select-option value="86">
-                  +86
-                </a-select-option>
-                <a-select-option value="87">
-                  +87
-                </a-select-option>
-              </a-select>
-            </a-input>
-          </a-form-item>
-          <a-form-item class="vcode">
-            <a-input
-              v-decorator="[
-                'Vcode',
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '必填项不能为空'
-                    }
-                  ]
-                }
-              ]"
-              placeholder="输入验证码"
-            ></a-input>
-            <a-button @click="getV" :disabled="Disabled">{{
-              btntext
-            }}</a-button>
-          </a-form-item>
+                <a-icon
+                  slot="prefix"
+                  type="user"
+                  style="color: rgba(0,0,0,.25)"
+                />
+              </a-input>
+            </a-form-item>
+            <a-form-item :label-col="{ span: 6 }" :wrapper-col="{ span: 24 }">
+              <a-input
+                class="inpuheight"
+                v-decorator="[
+                  'passwordOne',
+                  {
+                    rules: [
+                      { required: true, message: '请输入密码!' },
+                      { min: 6, message: '请输入至少6位密码,区分大小写!' },
+                      { validator: validatePass }
+                    ]
+                  }
+                ]"
+                type="password"
+                placeholder="至少6位密码，区分大小写"
+                name="passwordOne"
+              >
+                <a-icon
+                  slot="prefix"
+                  type="lock"
+                  style="color: rgba(0,0,0,.25)"
+                />
+              </a-input>
+            </a-form-item>
+            <a-form-item :label-col="{ span: 6 }" :wrapper-col="{ span: 24 }">
+              <a-input
+                class="inpuheight"
+                v-decorator="[
+                  'passwordTwo',
+                  {
+                    rules: [
+                      { required: true, message: '请再次确认密码!' },
+                      {
+                        min: 6,
+                        max: 20,
+                        message: '请输入至少6位-最多20位,区分大小写!'
+                      },
+                      { validator: validatePass2 }
+                    ]
+                  }
+                ]"
+                name="passwordTwo"
+                type="password"
+                placeholder="确认密码"
+              >
+                <a-icon
+                  slot="prefix"
+                  type="lock"
+                  style="color: rgba(0,0,0,.25)"
+                />
+              </a-input>
+            </a-form-item>
+            <a-form-item
+              :label-col="{ span: 6 }"
+              :wrapper-col="{ span: 24 }"
+              class="layout"
+            >
+              <a-input
+                v-decorator="[
+                  'phone',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: '11位手机号码'
+                      },
+                      { validator: phoneCheck }
+                    ]
+                  }
+                ]"
+                placeholder="11位手机号码"
+                style="width: 100%"
+              >
+                <a-select
+                  slot="addonBefore"
+                  v-decorator="['prefix', { initialValue: '86' }]"
+                  style="width: 70px"
+                  @change="handleChange"
+                >
+                  <a-select-option value="86">
+                    +86
+                  </a-select-option>
+                  <a-select-option value="87">
+                    +87
+                  </a-select-option>
+                </a-select>
+              </a-input>
+            </a-form-item>
+            <a-form-item class="vcode">
+              <a-input
+                v-decorator="[
+                  'Vcode',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: '必填项不能为空'
+                      }
+                    ]
+                  }
+                ]"
+                placeholder="输入验证码"
+              ></a-input>
+              <a-button @click="getV" :disabled="Disabled">{{
+                btntext
+              }}</a-button>
+            </a-form-item>
 
-          <a-form-item class="bottom1">
-            <a-button
-              type="primary"
-              html-type="submit"
-              class="login-form-button"
-            >
-              注册
-            </a-button>
-            <h6>
-              <a href="" @click.prevent="aClick('使用已有账户登录')"
-                >使用已有账户登录</a
+            <a-form-item class="bottom1">
+              <a-button
+                type="primary"
+                html-type="submit"
+                class="login-form-button"
               >
-            </h6>
-          </a-form-item>
-        </a-form>
+                注册
+              </a-button>
+              <h6>
+                <a href="" @click.prevent="aClick('使用已有账户登录')"
+                  >使用已有账户登录</a
+                >
+              </h6>
+            </a-form-item>
+          </a-form>
+        </div>
       </div>
-    </div>
+    </a-modal>
   </div>
 </template>
 <script>
-import BGT from "../../components/3DBG/index";
 export default {
-  components: { BGT },
   data() {
     return {
       form: null,
@@ -174,7 +173,8 @@ export default {
       text: "获取验证码",
       num: 0,
       Disabled: true,
-      interval: null
+      interval: null,
+      visible: false
     };
   },
   computed: {
@@ -185,7 +185,7 @@ export default {
   methods: {
     aClick(type) {
       if (type == "使用已有账户登录") {
-        this.$router.push({ path: "/login" });
+        this.handleOk();
       }
       return false;
     },
@@ -198,9 +198,10 @@ export default {
             console.log(res);
             if (res.code == 200) {
               this.$message.success(res.msg + "5秒后返回登陆页面");
+
               this.form.resetFields();
               setTimeout(() => {
-                this.$router.push({ path: "/login" });
+                this.handleOk();
               }, 5000);
             } else {
               this.$message.error(res.msg);
@@ -269,11 +270,16 @@ export default {
           duration: 10
         });
       });
+    },
+    showModal() {
+      this.visible = true;
+    },
+    handleOk(e) {
+      this.visible = false;
     }
   },
   mounted() {
     this.form = this.$form.createForm(this, { name: "normal_login" });
-    this.$refs.child.inif();
   },
   created() {
     this.show = true;
@@ -285,9 +291,9 @@ export default {
 * {
   user-select: none;
 }
-.box {
+.registerbox {
   width: 100%;
-  height: 100vh;
+  height: 380px;
   background: @skyblue;
   overflow: hidden;
   position: relative;
@@ -301,6 +307,7 @@ export default {
       }
       // color: @primary-color;
     }
+    margin-top: 12px;
     position: absolute;
     display: block;
     width: 410px;

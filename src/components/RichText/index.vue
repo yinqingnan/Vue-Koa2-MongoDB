@@ -36,7 +36,7 @@ export default {
       imgPercent: 0,
       imageLoading: false,
       newOption: {
-        placeholder: "请输入内容",
+        placeholder: this.$props.record.placeholder,
         history: {
           delay: 100,
           maxStack: 100,
@@ -75,7 +75,6 @@ export default {
       this.editorContent = val;
     },
     handler(newV) {
-      // console.log(newVnewV);
       this.$emit("changeVal", newV.options.fValue);
     },
     deep: true
@@ -88,6 +87,34 @@ export default {
 .ql-container {
   min-height: 300px;
   max-height: 300px;
+  overflow-y: auto;
+}
+/* PC端手机端滚动条优化 */
+.ql-container::-webkit-scrollbar {
+  width: 4px !important;
+  height: 1px !important;
+}
+.ql-container::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #c5c5c5 !important;
+  transition: 0.5s all;
+}
+.ql-container::-webkit-scrollbar-thumb:vertical:hover {
+  background-color: #c5c5c5 !important;
+  transition: 0.5s all;
+}
+.ql-container::-webkit-scrollbar-track-piece {
+  background-color: #f8f8f8 !important;
+  // -webkit-border-radius: 0px;
+}
+.ql-container::-webkit-scrollbar-thumb:vertical {
+  height: 1px;
+  background-color: f8f8f8 !important;
+  // -webkit-border-radius: 0px !important;
+}
+.ql-container::-webkit-scrollbar-thumb:horizontal {
+  width: 4px;
+  background-color: f8f8f8 !important;
+  // -webkit-border-radius: 0px !important;
 }
 .ql-editor .ql-blank {
   min-height: 300px;
