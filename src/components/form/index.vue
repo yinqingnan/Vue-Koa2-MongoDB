@@ -410,32 +410,8 @@ export default {
       ).toString(36);
     }
   },
-  mounted() {
-    // const that = this;
-    // that.height = document.body.clientHeight;
-    // that.FrameHeght = that.height - 175 + "px";
-    // window.onresize = () => {
-    //   return (() => {
-    //     that.height = document.body.clientHeight;
-    //     that.FrameHeght = that.height - 175 + "px";
-    //   })();
-    // };
-  },
-  watch: {
-    // eslint-disable-next-line no-unused-vars
-    // height(val) {
-    //   if (!this.timer) {
-    //     // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
-    //     this.timer = true;
-    //     let that = this;
-    //     setTimeout(function() {
-    //       // 打印screenWidth变化的值
-    //       that.FrameHeght = that.height - 175 + "px";
-    //       that.timer = false;
-    //     }, 400);
-    //   }
-    // }
-  }
+  mounted() {},
+  watch: {}
 };
 </script>
 <style>

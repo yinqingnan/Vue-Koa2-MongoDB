@@ -131,11 +131,8 @@ export default {
       });
       if (type == "save") {
         // 保存到服务器数据
-        // val.date.format("YYYY-MM-DD"); //整理日期格式;
-        // this.$api.ArticleSave(val).then(res => {
-        //   console.log(res);
-        // });
-        this.$api.Article123123(val).then(res => {
+        val.date.format("YYYY-MM-DD"); //整理日期格式;
+        this.$api.ArticleSave(val).then(res => {
           console.log(res);
         });
       }

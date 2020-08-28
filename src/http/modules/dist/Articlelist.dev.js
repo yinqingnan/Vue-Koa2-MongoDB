@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Article123123 = exports.ArticleSave = void 0;
+exports.ArticleSave = void 0;
 
 var _api = require("@/http/api");
 
@@ -11,12 +11,7 @@ var _api = require("@/http/api");
 // 保存文章列表
 var ArticleSave = function ArticleSave(obj) {
   return (0, _api.post)("/content", obj);
-};
+}; // export const Article123123 = obj => post("/content123123", obj);
+
 
 exports.ArticleSave = ArticleSave;
-
-var Article123123 = function Article123123(obj) {
-  return (0, _api.post)("/content123123", obj);
-};
-
-exports.Article123123 = Article123123;
