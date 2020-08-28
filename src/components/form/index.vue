@@ -95,8 +95,6 @@
                 }
               ]"
               class="timeP0"
-              :format="item.format"
-              :show-time="item.showTime"
               :placeholder="item.placeholder"
             >
             </a-date-picker>
@@ -368,16 +366,16 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault();
-
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log(values);
-          // console.log(this.imgurl);
           this.$refs.isUpImg[0].handleUpload();
-          //   setTimeout(() => {
-          //     values.imgUrl = this.imgurl;
-          //     this.$emit("tChange", values, "save");
-          //   }, 500);
+          setTimeout(() => {
+            values.imgUrl = this.imgurl;
+            values.id = this.randomID();
+            this.$emit("FormChang", values, "save");
+            this.reset(); //resetform
+            // console.log(this.$refs.editor)
+          }, 500);
         }
       });
     },
@@ -398,6 +396,13 @@ export default {
     },
     datachang(val, type) {
       this.imgurl = val;
+    },
+    randomID() {
+      return Number(
+        Math.random()
+          .toString()
+          .substr(3, length) + Date.now()
+      ).toString(36);
     }
   },
   mounted() {

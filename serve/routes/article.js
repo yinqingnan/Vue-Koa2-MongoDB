@@ -1,27 +1,25 @@
 const router = require("koa-router")();
 const multer = require("koa-multer"); //加载koa-multer模块
-
+var filename = "";
+// var msg = "";
 var storage = multer.diskStorage({
   // 文件保存路径
   destination: function(req, file, cd) {
-    cd(null, "../public/images");
+    cd(null, "public/images");
   },
+
   filename(req, file, cb) {
-    // 设置 文件名
     const name = file.originalname;
-    const extension = name.substring(name.length - 4);
-    console.log(name);
-    console.log(extension);
-    cb(null, "img-" + Date.now() + extension);
+    filename = file.originalname;
+    cb(null, name);
   }
 });
 
 var upload = multer({ storage: storage });
-router.post("/uploadimg", upload.array("avatar"), async ctx => {
-  // eslint-disable-next-line no-unused-vars
-  const files = ctx.req.files; //上传过来的文件
-  console.log(files);
-  ctx.body = { msg: "添加成功" }; //返回数据
+router.post("/uploadimg", upload.array("file"), async ctx => {
+  ctx.body = {
+    path: "http://127.0.0.1:3000/images/" + filename
+  };
 });
 
 module.exports = router;

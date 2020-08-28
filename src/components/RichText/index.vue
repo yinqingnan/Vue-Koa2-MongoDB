@@ -87,6 +87,7 @@ export default {
 @import "./style/font.css";
 .ql-container {
   min-height: 300px;
+  max-height: 300px;
 }
 .ql-editor .ql-blank {
   min-height: 300px;
@@ -99,6 +100,6 @@ export default {
 }
 .ql-editor {
   padding: 0 !important;
-  max-height: 300px;
+  // max-height: 300px;
 }
 </style>

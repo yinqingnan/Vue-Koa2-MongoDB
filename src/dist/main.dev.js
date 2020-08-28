@@ -20,6 +20,10 @@ var _nprogress = _interopRequireDefault(require("nprogress"));
 
 require("nprogress/nprogress.css");
 
+var _moment = _interopRequireDefault(require("moment"));
+
+require("moment/locale/zh-cn");
+
 var _antDesignVue = require("ant-design-vue");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -30,11 +34,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// import VueQuillEditor from "vue-quill-editor";
-// import "quill/dist/quill.core.css";
-// import "quill/dist/quill.snow.css";
-// import "quill/dist/quill.bubble.css";
-// Vue.use(VueQuillEditor);
+_moment["default"].locale("zh-cn");
+
 _nprogress["default"].inc(0.2);
 
 _nprogress["default"].configure({

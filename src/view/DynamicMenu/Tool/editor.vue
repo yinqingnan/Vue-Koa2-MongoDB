@@ -3,7 +3,7 @@
     <!-- <Editor v-model="article.content" /> -->
     <Form
       ref="CNnewTable"
-      @tChange="CNUChange"
+      @FormChang="FormChang"
       :wrapperCol="wrapperCol"
       :labelCol="labelCol"
       :dList="dList"
@@ -58,9 +58,7 @@ export default {
           code: "date",
           placeholder: "请选择时间",
           rule: [{}],
-          iVal: moment("2015/01/01", "YYYY/MM/DD"),
-          format: "YYYY-MM-DD HH:mm:ss",
-          showTime: { defaultValue: moment("00:00:00", "HH:mm:ss") },
+          iVal: moment(),
           display: true,
           disabled: false
         },
@@ -105,12 +103,16 @@ export default {
       ]
     };
   },
-  mounted() {
-    // console.log(this.content);
-  },
+  mounted() {},
   methods: {
-    CNUChange(val, type) {
-      console.log(val.type);
+    FormChang(val, type) {
+      console.log(val, type);
+      this.dList.forEach(element => {
+        //重置富文本编辑器默认内容
+        if (element.type == "editor") {
+          element.iVal = "";
+        }
+      });
     }
   }
 };

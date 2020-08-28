@@ -31,37 +31,36 @@ export default {
     beforeUpload(file) {
       //选择文件后
       console.log(file);
-      this.fileList = [];
-      this.fileList.push(file);
-      return false;
+      if (file != "" && file != null) {
+        this.fileList = [];
+        this.fileList.push(file);
+        return false;
+      }
     },
     handleUpload() {
       var { fileList } = this;
       console.log(fileList);
-      var formData = new FormData();
-      console.log(formData);
-      //   fileList.forEach(file => {
-      //     formData.append("file", file);
-      //   });
-      for (let i = 0; i < fileList.length; i++) {
-        // 在这里数组每一项的.raw才是你需要的文件，有疑惑的可以打印到控制台看一下就清楚了
-        formData.append("avatar", fileList[i].raw);
-      }
-      //   console.log(formData);
-      //   this.uploading = true;
-      axios({
-        url: "http://127.0.0.1:3000/uploadimg",
-        method: "post",
-        processData: false,
-        data: formData
-      }).then(res => {
-        console.log(res);
-        if (res.data.data != null) {
-          var path = res.data;
-        }
+      if (fileList.length != 0) {
+        var formData = new FormData();
+        fileList.forEach(file => {
+          formData.append("file", file);
+        });
+        axios({
+          url: "http://127.0.0.1:3000/uploadimg",
+          method: "post",
+          processData: false,
+          enctype: "multipart/form-data",
+          data: formData
+        }).then(res => {
+          console.log(res.data.path);
+          var path = res.data.path;
+          this.$emit("datachang", path, "url");
+          this.fileList = [];
+        });
+      } else {
+        var path = "";
         this.$emit("datachang", path, "url");
-        // this.uploading = false;
-      });
+      }
     },
     preview(file) {
       console.log(file);

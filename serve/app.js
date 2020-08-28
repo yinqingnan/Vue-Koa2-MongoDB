@@ -28,7 +28,7 @@ app.use(
   jwtKoa({ secret: secret }).unless({
     // 设置接口，可以不需要认证访问
     path: [
-      /^\/json/,
+      /^\/images/,
       /^\/uploadimg/,
       /^\/api\/login/,
       /^\/api\/register/,
