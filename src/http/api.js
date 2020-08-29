@@ -6,8 +6,8 @@ import axios from "axios";
 import { Message } from "ant-design-vue";
 import "ant-design-vue/lib/message/style";
 
-// import Vue from "vue";
-// let vm = new Vue();
+import Vue from "vue";
+let vm = new Vue();
 
 // import { Toast } from "vant";
 // import store from "../store/index";
@@ -34,14 +34,25 @@ axios.defaults.timeout = 10000;
 //   "Content-Type": "application/json;charset=UTF-8"
 // };
 
+
+
+
+
+let requestList = new Set() // 存储请求url
 // 请求拦截器
 axios.interceptors.request.use(
+
   config => {
     // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
     // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
-    // vm.$Loading.show();
+    vm.$Loading.show();
     const token = localStorage.getItem("token");
     token && (config.headers.Authorization = "Bearer " + token);
+
+    config.cancelToken = new axios.CancelToken(e => {
+      // 在这里阻止重复请求，上个请求未完成时，相同的请求不会再次执行
+      // requestList.has(config.url) ? e(`${location.host}${config.url}---重复请求被中断`) : requestList.add(config.url)
+    })
     return config;
   },
   error => {
@@ -52,16 +63,18 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
   response => {
+    // console.log(response.config.url)
+    setTimeout(() => {
+      requestList.delete(response.config.url)
+      // requestList=[]
+    }, 100)
     if (response.status === 200) {
-      // vm.$Loading.hide();
+      vm.$Loading.hide();
       if (response.data.code == 1002) {
         clearTimeout(iTime);
         iTime = setTimeout(function() {
           Message.warning(response.data.msg);
-          setTimeout(() => {
-            // localStorage.setItem("token", "");
-            // router.push({ path: "/login", params: {} })
-          }, 1000);
+
           return false;
         }, 100);
       } else if (response.data.code == 1) {

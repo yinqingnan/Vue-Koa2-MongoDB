@@ -51,16 +51,13 @@
             <a-menu slot="overlay" @click="handleMenuClick">
               <a-icon slot="icon" type="user" />
               <a-menu-item key="1">
-                <a-icon type="edit" />修改密码
-              </a-menu-item>
-              <a-menu-item key="2">
                 <a-icon type="redo" />忘记密码
               </a-menu-item>
-              <a-menu-item key="3">
+              <a-menu-item key="2">
                 <a-icon type="user" />个人中心
               </a-menu-item>
               <a-menu-divider />
-              <a-menu-item key="4">
+              <a-menu-item key="3">
                 <a-icon type="logout" />注销用户
               </a-menu-item>
             </a-menu>
@@ -124,20 +121,45 @@
         />
       </a-modal>
     </div>
+    <resetpassword ref="resetpsd" @modifypsd = 'modifypsd'/>
   </div>
 </template>
 <script>
+import resetpassword from '../resetpassword/index'
 export default {
+  components:{resetpassword},
   data() {
     return {
       size: false,
       visible: false,
-      value: ""
+      value: "",
     };
   },
   methods: {
     handleMenuClick(e) {
-      console.log(e);
+      console.log();
+      switch (e.key) {
+        case '1':
+           this.$refs.resetpsd.showModal();
+          break;
+        case '2':
+          console.log(2);
+          break;
+        case '3':
+          console.log(3);
+          //返回到登陆界面   清空掉所有的本地储存
+          localStorage.setItem("lockpsd", "");
+          localStorage.setItem("navlist", "");
+          localStorage.setItem("nav", "");
+          localStorage.setItem("currentrouter", "");
+          localStorage.setItem("navcode", "");
+          localStorage.setItem("token", "");
+          localStorage.setItem("openKeys", "");
+          this.$router.push({ path: "/login" });
+          break;
+        default:
+          break;
+      }
     },
     languageClick(e) {
       console.log(e);
@@ -174,6 +196,17 @@ export default {
         }
       }
     },
+    modifypsd(val,type){
+      //返回到登陆界面   清空掉所有的本地储存
+          localStorage.setItem("lockpsd", "");
+          localStorage.setItem("navlist", "");
+          localStorage.setItem("nav", "");
+          localStorage.setItem("currentrouter", "");
+          localStorage.setItem("navcode", "");
+          localStorage.setItem("token", "");
+          localStorage.setItem("openKeys", "");
+          this.$router.push({ path: "/login" });
+    },
     Lockscreen() {
       this.visible = true;
     },
@@ -197,12 +230,12 @@ export default {
       } else {
         this.$message.warning("锁屏密码不能为空", 2);
       }
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
-<style lang="less" scope="this api replaced by slot-scope in 2.5.0+">
+<style lang="less" scope>
 .box {
   display: flex;
   //   justify-content: space-between;

@@ -34,9 +34,10 @@ export default {
   methods: {
     getnavlist(obj) {
       this.$api.getnavlist(obj).then(res => {
+        // console.log(res)
         this.list = res.data;
         localStorage.setItem("navlist", JSON.stringify(res.data));
-      });
+      }).catch(()=>{});
     },
     setting() {
       this.judge = true;
@@ -107,6 +108,7 @@ export default {
   margin: 24px 16px;
   padding: 24px;
   background: #fff;
+  overflow-y: auto;
 }
 .setting {
   position: fixed;

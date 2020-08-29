@@ -11,7 +11,7 @@ const token = require("../token/createToken"); //引入生成token的方法
 router.prefix("/api"); // 设置当前的请求前缀
 
 // get请求 示例获取参数
-router.get("/login1", function(ctx, e) {
+router.get("/login1", function (ctx, e) {
   let psd = ctx.request.query.password;
   let name = ctx.request.query.userName;
   // console.log(psd   + name  )
@@ -20,13 +20,14 @@ router.get("/login1", function(ctx, e) {
     name
   };
 });
-
+var CurrentName    //当前登录的用户名称
 // post请求接收参数  post请求不能直接在页面上测试
 // 登陆
 router.post("/login", async ctx => {
   let postParam = ctx.request.body; // 接收的参数;
   let psd = postParam.password;
   let name = postParam.userName;
+  CurrentName = postParam.userName;
   let msg = await user.find(); //表查询
   ctx.response.type = "application/json"; //设置返回的数据类型
 
@@ -133,7 +134,13 @@ router.post("/resetpsd", async ctx => {
     } else {
       let object = obj[0];
       object.psd = postParam.passwordOne;
-      user.update({ user: object.user }, { $set: { psd: object.psd } });
+      user.update({
+        user: object.user
+      }, {
+        $set: {
+          psd: object.psd
+        }
+      });
       ctx.body = {
         code: 200,
         msg: "修改成功，请用新密码登陆"
@@ -159,8 +166,37 @@ router.post("/getnavlist", async ctx => {
   ctx.body = {
     code: 200,
     msg: "success",
+    data: navlist,
+  };
+});
+//获取nav列表
+router.post("/getnavlist2", async ctx => {
+  let postParam = ctx.request.body; // 接收的参数;
+  let state = postParam.state;
+  // 通过权限判断下发不同的导航列表
+  // eslint-disable-next-line no-unused-vars
+  let navlist = [];
+  if (state == 0) {
+    //admin用户登陆
+    navlist = await adminlist.find(); //表查询
+  } else {
+    //普通用户登陆
+    navlist = await OrdinaryNav.find(); //表查询
+  }
+  ctx.body = {
+    code: 200,
+    msg: "success",
     data: navlist
   };
 });
+
+// 修改密码
+router.post('/modifypsd',async ctx=>{
+  let postParam = ctx.request.body; // 接收的参数;
+  ctx.body={
+    code:1
+  }
+})
+
 
 module.exports = router;

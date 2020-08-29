@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="">
     最外层首页
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
     // }
   },
   mounted() {
-    console.log(window.less);
+    // console.log(window.less);
   }
 };
 </script>

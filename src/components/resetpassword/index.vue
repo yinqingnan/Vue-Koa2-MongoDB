@@ -126,9 +126,7 @@
             <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
           </a-input>
         </a-form-item>
-        <!-- <a-form-item>
-          <a-button type="primary" htmlType="submit"> </a-button>
-        </a-form-item> -->
+
       </a-form>
     </a-modal>
   </div>
@@ -190,6 +188,7 @@ export default {
               if (res.code == 200) {
                 this.$message.success(res.msg);
                 this.form.resetFields();
+                this.$emit('modifypsd',1,"modifypsd")
               } else {
                 this.$message.error(res.msg);
               }

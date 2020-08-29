@@ -10,11 +10,7 @@ import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
 
-// import VueQuillEditor from "vue-quill-editor";
-// import "quill/dist/quill.core.css";
-// import "quill/dist/quill.snow.css";
-// import "quill/dist/quill.bubble.css";
-// Vue.use(VueQuillEditor);
+
 
 NProgress.inc(0.2);
 NProgress.configure({ easing: "ease", speed: 200, showSpinner: false });

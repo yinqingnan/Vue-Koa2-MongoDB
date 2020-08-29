@@ -83,6 +83,7 @@
 
         <!-- 重置密码框 -->
         <resetpassword ref="resetpsd"></resetpassword>
+        <!-- 注册账户弹窗 -->
         <registerbox ref="registerbox" />
       </div>
     </div>
@@ -115,7 +116,6 @@ export default {
       if (type == "登陆") {
         // return false;
       } else if (type == "注册") {
-        // this.$router.push({ path: "/register" });
         this.$refs.registerbox.showModal();
       } else if (type == "忘记密码") {
         this.$refs.resetpsd.showModal();
@@ -138,17 +138,16 @@ export default {
               this.$message.info("登陆成功", 2);
               this.show = false;
               this.$api.getnavlist({ state: res.jurisdiction }).then(res => {
-                // console.log(JSON.stringify(res.data));
                 localStorage.setItem("navlist", JSON.stringify(res.data));
                 this.addnavlist(concatrouter());
                 resetRouter(); //重置路由
                 router.addRoutes(concatrouter()); //添加新的路由表
                 this.$router.push({ path: "/home/index" });
-              });
+              }).catch(()=>{console.log(222)});
             } else {
               this.$message.error(res.msg);
             }
-          });
+          }).catch(()=>{console.log(111)});
         }
       });
     },

@@ -588,7 +588,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scops>
 #world {
   position: absolute;
   width: 100%;

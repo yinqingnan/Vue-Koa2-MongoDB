@@ -27,11 +27,12 @@ router.post("/uploadimg", upload.array("file"), async ctx => {
   };
 });
 
-//保存编辑器的内容到服务器
+//保存编辑器的内容
 router.post("/content", async ctx => {
   let postParam = ctx.request.body; // 接收的参数;
   Article.insert(postParam);
   var data = await Article.find(); //查询当前所有的列表
+  console.log(postParam);
   ctx.body = {
     code: "200",
     msg: "添加成功",
@@ -39,13 +40,4 @@ router.post("/content", async ctx => {
   };
 });
 
-router.post("/content123123", async ctx => {
-  let postParam = ctx.request.body; // 接收的参数;
-  Article.insert(postParam);
-  ctx.body = {
-    code: "200",
-    msg: "添加成功",
-    data: postParam
-  };
-});
 module.exports = router;
