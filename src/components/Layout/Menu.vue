@@ -115,7 +115,6 @@ export default {
   }
   .ant-layout-sider-children::-webkit-scrollbar-track-piece {
     background-color: #f8f8f8 !important;
-    // -webkit-border-radius: 0px;
   }
   .ant-layout-sider-children::-webkit-scrollbar-thumb:vertical {
     height: 1px;

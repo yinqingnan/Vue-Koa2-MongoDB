@@ -10,7 +10,9 @@ import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
 
+import VueContextMenu from '@xunlei/vue-context-menu'
 
+Vue.use(VueContextMenu)
 
 NProgress.inc(0.2);
 NProgress.configure({ easing: "ease", speed: 200, showSpinner: false });

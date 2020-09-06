@@ -133,6 +133,9 @@ export default {
         val.date.format("YYYY-MM-DD"); //整理日期格式;
         this.$api.ArticleSave(val).then(res => {
           console.log(res);
+          if(res.code == 200){
+             this.$message.success(res.msg,2)
+          }
         });
       }
     }
