@@ -5,7 +5,7 @@
       <h1>Vue相关</h1>
     </div>
     <ul class="contnet">
-      <li v-for="(item, index) in list" :key="index" class="list" @contextmenu.prevent="show(item, $event)">
+      <li v-for="(item, index) in list" :key="index" class="list" @contextmenu.prevent="show(item)">
         <div :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }">
           111111
         </div>
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       list: [],
+      clickdata:null
     };
   },
   mounted() {
@@ -33,8 +34,11 @@ export default {
         this.list = [...res.data.Markdown, ...res.data.Richtext];
       });
     },
-    show(item,e) {
-      console.log(item,e)
+    show(item) {
+      this.clickdata = null
+      this.clickdata = item
+      console.log(this.clickdata)
+
     }
   },
 };
