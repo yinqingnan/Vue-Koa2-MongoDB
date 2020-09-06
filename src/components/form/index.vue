@@ -27,8 +27,8 @@
                 item.code,
                 {
                   initialValue: item.iVal,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
               :placeholder="item.placeholder"
             />
@@ -45,8 +45,8 @@
                 item.code,
                 {
                   initialValue: 0,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
               :placeholder="item.placeholder"
             />
@@ -91,8 +91,8 @@
               v-decorator="[
                 item.code,
                 {
-                  initialValue: item.iVal
-                }
+                  initialValue: item.iVal,
+                },
               ]"
               class="timeP0"
               :placeholder="item.placeholder"
@@ -112,8 +112,8 @@
                 item.code,
                 {
                   rules: item.rule,
-                  initialValue: item.iVal
-                }
+                  initialValue: item.iVal,
+                },
               ]"
               :placeholder="item.placeholder"
             >
@@ -138,8 +138,8 @@
                 item.code,
                 {
                   initialValue: item.iVal,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
               mode="multiple"
               placeholder="请选择"
@@ -167,8 +167,8 @@
                 item.code,
                 {
                   initialValue: item.iVal,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
             >
               <span
@@ -192,8 +192,8 @@
               v-decorator="[
                 item.code,
                 {
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
               placeholder="请选择"
               :options="item.data"
@@ -214,8 +214,8 @@
                 item.code,
                 {
                   initialValue: item.iVal,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
             />
           </a-form-item>
@@ -245,8 +245,8 @@
                 item.code,
                 {
                   defaultValue: item.iVal,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
             >
               <span
@@ -259,7 +259,7 @@
             </a-tree-select>
           </a-form-item>
 
-          <!-- //富文本 -->
+          <!-- 富文本 -->
           <a-form-item
             v-if="item.type == 'editor'"
             :label="item.title"
@@ -273,10 +273,27 @@
               v-decorator="[
                 item.code,
                 {
-                  initialValue: item.iVal
-                }
+                  initialValue: item.iVal,
+                },
               ]"
             ></editor>
+          </a-form-item>
+          <!-- Markdown编辑器 -->
+          <a-form-item v-if="item.type == 'Markdown'"
+          style="border:1px solid #666"
+            :label="item.title"
+            :wrapperCol="{span:24}">
+            <Markdown
+              ref="Markdown"
+              :record="item"
+              @markdown="markdown"
+              v-decorator="[
+                item.code,
+                {
+                  initialValue: item.iVal,
+                },
+              ]"
+            ></Markdown>
           </a-form-item>
           <!-- 按钮 -->
           <a-form-item class="btnBox" v-if="item.type == 'btn'">
@@ -303,8 +320,8 @@
                 item.code,
                 {
                   initialValue: item.iVal,
-                  rules: item.rule
-                }
+                  rules: item.rule,
+                },
               ]"
               :placeholder="item.placeholder"
               :autoSize="{ minRows: 3, maxRows: 3 }"
@@ -329,11 +346,13 @@
 <script>
 import imgupload from "../imgUpload/imgUpload";
 import editor from "../RichText/index";
+import Markdown from "../Markdown/Markdown";
 export default {
   name: "dataSource",
   components: {
     imgupload,
-    editor
+    editor,
+    Markdown,
   },
   created() {},
   props: [
@@ -343,7 +362,7 @@ export default {
     "modelName",
     "labelCol",
     "wrapCol1",
-    "AList"
+    "AList",
   ],
   data() {
     return {
@@ -352,7 +371,8 @@ export default {
       mWidth: "600px",
       imgurl: "",
       FrameHeght: "762px",
-      height: null
+      height: null,
+      Markdowndata:""
     };
   },
   methods: {
@@ -372,9 +392,9 @@ export default {
         if (!err) {
           this.$refs.isUpImg[0].handleUpload();
           setTimeout(() => {
-            console.log(this.imgurl);
             values.imgUrl = this.imgurl;
             values.id = this.randomID();
+            values.Markdown = this.Markdowndata
             this.$emit("FormChang", values, "save");
             this.reset(); //resetform
           }, 500);
@@ -397,10 +417,13 @@ export default {
     changeVal(val, type) {
       console.log(val, type);
     },
-    // eslint-disable-next-line no-unused-vars
     datachang(val, type) {
       // console.log(val);
       this.imgurl = val;
+    },
+    markdown(val, type) {
+      console.log(val, type);
+      this.Markdowndata = val
     },
     randomID() {
       return Number(
@@ -408,10 +431,10 @@ export default {
           .toString()
           .substr(3, length) + Date.now()
       ).toString(36);
-    }
+    },
   },
   mounted() {},
-  watch: {}
+  watch: {},
 };
 </script>
 <style>

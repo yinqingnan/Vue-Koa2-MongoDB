@@ -1,6 +1,5 @@
 <template>
   <div class="">
-    <!-- <Editor v-model="article.content" /> -->
     <Form
       ref="CNnewTable"
       @FormChang="FormChang"
