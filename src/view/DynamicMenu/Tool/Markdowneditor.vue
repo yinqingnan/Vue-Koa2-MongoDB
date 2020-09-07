@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- 使用markdown编辑器编辑 -->
-    <!-- <Markdown /> -->
     <Form
       ref="CNnewTable"
       @FormChang="FormChang"
@@ -99,13 +98,13 @@ export default {
           disabled: false,
         },
         {
-          type: 'text',
-          long: 'long',
+          type: 'Textfield',
           title: '内容简介',
           code: 'Descr',
           placeholder: '请输入描述',
           rule: [{ required: true, message: '必填项不能为空！' }],
           iVal: '',
+          display: true,
           disabled: false,
         },
         {
@@ -119,12 +118,12 @@ export default {
           disabled: false,
         },
 
-        {
-          type: 'btn',
-          long: 'long',
-          display: true,
-          disabled: false,
-        },
+        // {
+        //   type: 'btn',
+        //   long: 'long',
+        //   display: true,
+        //   disabled: false,
+        // },
       ],
     }
   },

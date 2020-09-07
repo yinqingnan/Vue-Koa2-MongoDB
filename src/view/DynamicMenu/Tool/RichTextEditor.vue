@@ -16,7 +16,6 @@ import Form from "@/components/form/index";
 export default {
   components: {
     Form
-    // Editor
   },
   data() {
     return {
@@ -89,13 +88,14 @@ export default {
           disabled: false
         },
         {
-          type: "text",
+          type: "Textfield",
           long: "long",
           title: "内容简介",
           code: "Descr",
           placeholder: "请输入描述",
           rule: [{ required: true, message: "必填项不能为空！" }],
           iVal: "",
+            display: true,
           disabled: false
         },
         {
@@ -109,12 +109,7 @@ export default {
           disabled: false
         },
 
-        {
-          type: "btn",
-          long: "long",
-          display: true,
-          disabled: false
-        }
+      
       ]
     };
   },

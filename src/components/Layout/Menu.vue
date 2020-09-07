@@ -9,7 +9,14 @@
     >
       <!-- :style="{ width: collapsed ? '256px' : '' }" -->
       <div class="logo">
-        <img src="../../assets/img/hz.png" alt />
+        <!-- <img src="../../assets/img/hz.png" alt /> -->
+        <a-tooltip
+          placement="topLeft"
+          title="XXXXX平台"
+          arrow-point-at-center
+        >
+          <a-icon type="gitlab" class="iconfont1" />
+        </a-tooltip>
         <a v-if="!collapsed">XXXXX平台</a>
       </div>
       <a-menu
@@ -27,7 +34,7 @@
             <router-link
               :to="{
                 path: '/home' + item.path,
-                params: { title: item.title }
+                params: { title: item.title },
               }"
             >
               <!-- 图标 -->
@@ -43,20 +50,20 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("systemconfig");
-import subMenu from "@/components/Layout/SiderMenu/index";
+import { createNamespacedHelpers } from 'vuex';
+const { mapState } = createNamespacedHelpers('systemconfig');
+import subMenu from '@/components/Layout/SiderMenu/index';
 
 export default {
   components: {
-    subMenu
+    subMenu,
   },
   data() {
     return {
       selectedKeys: null,
-      defaultSelectedKeys: [localStorage.getItem("navcode")], //默认选中的标签
-      openKeys: [localStorage.getItem("openKeys")], //默认展开的菜单组
-      show: false
+      defaultSelectedKeys: [localStorage.getItem('navcode')], //默认选中的标签
+      openKeys: [localStorage.getItem('openKeys')], //默认展开的菜单组
+      show: false,
     };
   },
   methods: {
@@ -64,9 +71,9 @@ export default {
       if (openKeys.length !== 0) {
         this.openKeys = [openKeys[1]];
         // console.log(this.openKeys);
-        localStorage.setItem("openKeys", this.openKeys);
+        localStorage.setItem('openKeys', this.openKeys);
       } else {
-        this.openKeys = [""];
+        this.openKeys = [''];
       }
     },
     // eslint-disable-next-line no-unused-vars
@@ -74,25 +81,25 @@ export default {
       // 选中项
       console.log(key);
       if (key == 1 || key == 7) {
-        this.openKeys = [""];
+        this.openKeys = [''];
       }
       // eslint-disable-next-line no-unused-vars
-      let obj = JSON.parse(localStorage.getItem("navlist")); //菜单列表数据
-      localStorage.setItem("navcode", key);
+      let obj = JSON.parse(localStorage.getItem('navlist')); //菜单列表数据
+      localStorage.setItem('navcode', key);
       this.selectedKeys = [key];
-    }
+    },
   },
-  props: ["list"],
+  props: ['list'],
   computed: {
     ...mapState({
-      collapsed: state => state.collapsed,
-      theme: state => state.theme
-    })
+      collapsed: (state) => state.collapsed,
+      theme: (state) => state.theme,
+    }),
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
-<style lang="less" scope>
+<style lang="less">
 // @import "../../styles/theme/variables.less";
 .Menu {
   .ant-layout-sider-children {
@@ -150,5 +157,11 @@ export default {
 }
 .bg {
   background: #fff !important;
+}
+.iconfont1 {
+  font-size: 30px;
+  line-height: 30px;
+  color: #ffffff;
+  margin: 0 8px;
 }
 </style>
