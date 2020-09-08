@@ -8,9 +8,7 @@
           :xs="wrapCol.xs"
           :xl="wrapCol.xl"
           v-for="(item, index) in dList"
-          v-if="item.long == undefined"
           :key="index"
-          v-show="item.display"
         >
           <!-- 文本 -->
           <a-form-item
@@ -171,11 +169,7 @@
                 },
               ]"
             >
-              <span
-                style="color: #08c"
-                slot="title"
-                slot-scope="{ key, value }"
-              >
+              <span style="color: #08c" slot="title" slot-scope="{ value }">
                 {{ value }}
               </span>
             </a-tree-select>
@@ -249,11 +243,7 @@
                 },
               ]"
             >
-              <span
-                style="color: #08c"
-                slot="title"
-                slot-scope="{ key, value }"
-              >
+              <span style="color: #08c" slot="title" slot-scope="{ value }">
                 {{ value }}
               </span>
             </a-tree-select>
@@ -279,10 +269,12 @@
             ></editor>
           </a-form-item>
           <!-- Markdown编辑器 -->
-          <a-form-item v-if="item.type == 'Markdown'"
-          style="border:1px solid #666"
+          <a-form-item
+            v-if="item.type == 'Markdown'"
+            style="border:1px solid #666"
             :label="item.title"
-            :wrapperCol="{span:24}">
+            :wrapperCol="{ span: 24 }"
+          >
             <Markdown
               ref="Markdown"
               :record="item"
@@ -295,14 +287,11 @@
               ]"
             ></Markdown>
           </a-form-item>
-          <!-- 按钮 -->
-          <a-form-item class="btnBox" v-if="item.type == 'btn'">
+          <!-- 表格搜索按钮 -->
+          <!-- <a-form-item class="btnBox" v-if="item.type == 'btn'">
             <a-button type="primary" html-type="submit">搜索</a-button>
             <a-button @click="handleReset">重置</a-button>
-          </a-form-item>
-        </a-col>
-        <!-- 文本域 -->
-        <a-col v-else>
+          </a-form-item> -->
           <a-form-item
             class="tex_textarea"
             :class="item.cName"
@@ -327,28 +316,25 @@
               :autoSize="{ minRows: 3, maxRows: 3 }"
             />
           </a-form-item>
-          <!-- 按钮 -->
-          <a-form-item
-            class="longBox"
-            v-if="item.type == 'btn'"
-            style="margin-top: 460px;"
-          >
+          <!-- 底部按钮 -->
+          <a-form-item class="longBox" v-if="item.type == 'Submitbtn'">
             <a-button @click="handleReset" style="margin-right:10px"
               >取消</a-button
             >
             <a-button type="primary" @click="handleSubmit">确定</a-button>
           </a-form-item>
         </a-col>
+        <!-- 文本域 -->
       </a-row>
     </a-form>
   </div>
 </template>
 <script>
-import imgupload from "../imgUpload/imgUpload";
-import editor from "../RichText/index";
-import Markdown from "../Markdown/Markdown";
+import imgupload from '../imgUpload/imgUpload';
+import editor from '../RichText/index';
+import Markdown from '../Markdown/Markdown';
 export default {
-  name: "dataSource",
+  name: 'dataSource',
   components: {
     imgupload,
     editor,
@@ -356,23 +342,23 @@ export default {
   },
   created() {},
   props: [
-    "dList",
-    "wrapperCol",
-    "wrapCol",
-    "modelName",
-    "labelCol",
-    "wrapCol1",
-    "AList",
+    'dList',
+    'wrapperCol',
+    'wrapCol',
+    'modelName',
+    'labelCol',
+    'wrapCol1',
+    'AList',
   ],
   data() {
     return {
       form: this.$form.createForm(this),
       isList: false,
-      mWidth: "600px",
-      imgurl: "",
-      FrameHeght: "762px",
+      mWidth: '600px',
+      imgurl: '',
+      FrameHeght: '762px',
       height: null,
-      Markdowndata:""
+      Markdowndata: '',
     };
   },
   methods: {
@@ -394,8 +380,8 @@ export default {
           setTimeout(() => {
             values.imgUrl = this.imgurl;
             values.id = this.randomID();
-            values.Markdown = this.Markdowndata
-            this.$emit("FormChang", values, "save");
+            values.Markdown = this.Markdowndata;
+            this.$emit('FormChang', values, 'save');
             this.reset(); //resetform
           }, 500);
         }
@@ -406,8 +392,8 @@ export default {
     getCurrentStyle(current, today) {
       const style = {};
       if (current.date() === 1) {
-        style.border = "1px solid #1890ff";
-        style.borderRadius = "50%";
+        style.border = '1px solid #1890ff';
+        style.borderRadius = '50%';
       }
       return style;
     },
@@ -423,7 +409,7 @@ export default {
     },
     markdown(val, type) {
       console.log(val, type);
-      this.Markdowndata = val
+      this.Markdowndata = val;
     },
     randomID() {
       return Number(

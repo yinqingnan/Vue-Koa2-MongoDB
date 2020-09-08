@@ -13,8 +13,8 @@
   </div>
 </template>
 <script>
-import Form from '@/components/form/index'
-import moment from 'moment'
+import Form from '@/components/form/index';
+import moment from 'moment';
 
 export default {
   components: { Form },
@@ -120,31 +120,30 @@ export default {
         },
 
         {
-          type: 'btn',
-          long: 'long',
+          type: 'Submitbtn',
           display: true,
           disabled: false,
         },
       ],
-    }
+    };
   },
   methods: {
     FormChang(val, type) {
-      console.log(val, type)
+      console.log(val, type);
       this.dList.forEach((item) => {
         //   //重置富文本编辑器默认内容
         if (item.type == 'Markdown') {
-          item.iVal = ''
+          item.iVal = '';
         }
-      })
+      });
       if (type == 'save') {
         // 保存到服务器数据
-        val.date.format('YYYY-MM-DD') //整理日期格式;
+        val.date.format('YYYY-MM-DD'); //整理日期格式;
         this.$api.ArticleMarkdownsave(val).then((res) => {
-          console.log(res)
-        })
+          console.log(res);
+        });
       }
     },
   },
-}
+};
 </script>
