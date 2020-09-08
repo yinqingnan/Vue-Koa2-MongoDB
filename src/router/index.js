@@ -37,7 +37,7 @@ const routes = [{
     }
   },
   {
-    path: "/pageshow",
+    path: "/pageshow/:id",
     name: 'pageshow',
     component: () => {
       return import('@/view/pageshow/index.vue')

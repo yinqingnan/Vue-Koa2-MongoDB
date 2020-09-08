@@ -16,7 +16,7 @@
       <div @click="switchscreen">
         <a-tooltip>
           <template slot="title">
-            {{ size ? "缩小" : "全屏" }}
+            {{ size ? '缩小' : '全屏' }}
           </template>
           <a-icon :type="size ? 'fullscreen-exit' : 'fullscreen'" />
         </a-tooltip>
@@ -121,18 +121,18 @@
         />
       </a-modal>
     </div>
-    <resetpassword ref="resetpsd" @modifypsd = 'modifypsd'/>
+    <resetpassword ref="resetpsd" @modifypsd="modifypsd" />
   </div>
 </template>
 <script>
-import resetpassword from '../resetpassword/index'
+import resetpassword from '../resetpassword/index';
 export default {
-  components:{resetpassword},
+  components: { resetpassword },
   data() {
     return {
       size: false,
       visible: false,
-      value: "",
+      value: '',
     };
   },
   methods: {
@@ -140,22 +140,21 @@ export default {
       console.log();
       switch (e.key) {
         case '1':
-           this.$refs.resetpsd.showModal();
+          this.$refs.resetpsd.showModal();
           break;
         case '2':
           console.log(2);
           break;
         case '3':
-          console.log(3);
           //返回到登陆界面   清空掉所有的本地储存
-          localStorage.setItem("lockpsd", "");
-          localStorage.setItem("navlist", "");
-          localStorage.setItem("nav", "");
-          localStorage.setItem("currentrouter", "");
-          localStorage.setItem("navcode", "");
-          localStorage.setItem("token", "");
-          localStorage.setItem("openKeys", "");
-          this.$router.push({ path: "/login" });
+          localStorage.setItem('lockpsd', '');
+          localStorage.setItem('navlist', '');
+          localStorage.setItem('nav', '');
+          localStorage.setItem('currentrouter', '');
+          localStorage.setItem('navcode', '');
+          localStorage.setItem('token', '');
+          localStorage.setItem('openKeys', '');
+          this.$router.push({ path: '/login' });
           break;
         default:
           break;
@@ -196,16 +195,16 @@ export default {
         }
       }
     },
-    modifypsd(val,type){
+    modifypsd(val, type) {
       //返回到登陆界面   清空掉所有的本地储存
-          localStorage.setItem("lockpsd", "");
-          localStorage.setItem("navlist", "");
-          localStorage.setItem("nav", "");
-          localStorage.setItem("currentrouter", "");
-          localStorage.setItem("navcode", "");
-          localStorage.setItem("token", "");
-          localStorage.setItem("openKeys", "");
-          this.$router.push({ path: "/login" });
+      localStorage.setItem('lockpsd', '');
+      localStorage.setItem('navlist', '');
+      localStorage.setItem('nav', '');
+      localStorage.setItem('currentrouter', '');
+      localStorage.setItem('navcode', '');
+      localStorage.setItem('token', '');
+      localStorage.setItem('openKeys', '');
+      this.$router.push({ path: '/login' });
     },
     Lockscreen() {
       this.visible = true;
@@ -215,20 +214,20 @@ export default {
     },
     handleOk() {
       console.log(this.value);
-      if (this.value != "") {
+      if (this.value != '') {
         if (this.value.length < 2) {
-          this.$message.warning("锁屏密码最少3位", 2);
+          this.$message.warning('锁屏密码最少3位', 2);
         } else {
           setTimeout(() => {
-            localStorage.setItem("currentrouter", this.$route.fullPath); // 将当前路由保存到localStorage
-            localStorage.setItem("lockpsd", this.value); //保存锁屏密码
-            this.$router.push({ path: "/lockscreen" });
+            localStorage.setItem('currentrouter', this.$route.fullPath); // 将当前路由保存到localStorage
+            localStorage.setItem('lockpsd', this.value); //保存锁屏密码
+            this.$router.push({ path: '/lockscreen' });
             this.visible = false;
-            this.value = "";
+            this.value = '';
           }, 1000);
         }
       } else {
-        this.$message.warning("锁屏密码不能为空", 2);
+        this.$message.warning('锁屏密码不能为空', 2);
       }
     },
   },

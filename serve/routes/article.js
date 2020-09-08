@@ -63,7 +63,9 @@ router.post('/exportarticle', async ctx => {
   let Markdown = await ArticleMarkdown.find({
     tag: postParam.type
   }); //查询当前所有的列表
-
+  console.log(postParam)
+  console.log(Richtext)
+  console.log(Markdown)
   ctx.body = {
     code: "200",
     msg: "查询成功",
@@ -74,7 +76,7 @@ router.post('/exportarticle', async ctx => {
     }
   };
 })
-
+// 文章删除
 router.post("/listdlt", async ctx => {
   let postParam = ctx.request.body; // 接收post的参数;
   let Richtext = await Article.find({
@@ -83,7 +85,6 @@ router.post("/listdlt", async ctx => {
   let Markdown = await ArticleMarkdown.find({
     id: postParam.id
   }); //查询markdown所有的列表数据
-
   let data
   if (Richtext.length != "") {
     if (Richtext[0].id == postParam.id) {
@@ -97,7 +98,6 @@ router.post("/listdlt", async ctx => {
   }
   if (Markdown.length != "") {
     if (Markdown[0].id == postParam.id) {
-      console.log(456)
       ArticleMarkdown.remove({
         id: postParam.id
       })

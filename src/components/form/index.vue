@@ -320,11 +320,7 @@
           </a-form-item>
 
           <!-- 按钮 -->
-          <a-form-item
-            class="longBox"
-            v-if="item.type == 'btn'"
-            style="margin-top: 460px;"
-          >
+          <a-form-item class="longBox" v-if="item.type == 'buttonbtn'">
             <a-button @click="handleReset" style="margin-right:10px"
               >取消</a-button
             >

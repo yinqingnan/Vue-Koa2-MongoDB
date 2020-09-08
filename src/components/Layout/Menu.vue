@@ -10,11 +10,7 @@
       <!-- :style="{ width: collapsed ? '256px' : '' }" -->
       <div class="logo">
         <!-- <img src="../../assets/img/hz.png" alt /> -->
-        <a-tooltip
-          placement="topLeft"
-          title="XXXXX平台"
-          arrow-point-at-center
-        >
+        <a-tooltip placement="topLeft" title="XXXXX平台" arrow-point-at-center>
           <a-icon type="gitlab" class="iconfont1" />
         </a-tooltip>
         <a v-if="!collapsed">XXXXX平台</a>
@@ -82,6 +78,9 @@ export default {
       console.log(key);
       if (key == 1 || key == 7) {
         this.openKeys = [''];
+      }
+      if (key == 98 || key == 80) {
+        localStorage.setItem('ArticleContent', '');
       }
       // eslint-disable-next-line no-unused-vars
       let obj = JSON.parse(localStorage.getItem('navlist')); //菜单列表数据
