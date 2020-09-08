@@ -122,4 +122,20 @@ router.post("/listdlt", async ctx => {
 
 })
 
+
+router.post('/pageshow', async ctx => {
+  let postParam = ctx.request.body; // 接收post的参数;
+  let Richtext = await Article.find({
+    id: postParam.id
+  }); //查询edit当前所有的列表数据
+  let Markdown = await ArticleMarkdown.find({
+    id: postParam.id
+  }); //查询markdown所有的列表数据
+  let arr = [...Richtext, ...Markdown]
+  ctx.body = {
+    code: '200',
+    msg: '查询成功',
+    data: arr
+  }
+})
 module.exports = router;

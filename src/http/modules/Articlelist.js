@@ -15,3 +15,6 @@ export const exportarticle = obj => post('/exportarticle', obj)
 
 //数据库操作
 export const listoperation = obj => post('/listdlt', obj)
+
+// 页面展示通过id请求数据
+export const pageshow = obj => post('/pageshow', obj)

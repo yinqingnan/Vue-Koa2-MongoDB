@@ -14,7 +14,8 @@ import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
 
-
+import VueParticles from 'vue-particles' //引入星空背景
+Vue.use(VueParticles)
 
 NProgress.inc(0.2);
 NProgress.configure({

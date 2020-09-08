@@ -72,7 +72,7 @@ export default {
             item.imgUrl = this.img;
           }
         });
-        this.list = arr;
+        this.list = arr.reverse();
       });
     },
 
