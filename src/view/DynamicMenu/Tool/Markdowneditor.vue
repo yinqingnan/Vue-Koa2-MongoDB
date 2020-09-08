@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- 使用markdown编辑器编辑 -->
-    <!-- <Markdown /> -->
     <Form
       ref="CNnewTable"
       @FormChang="FormChang"
@@ -99,13 +98,13 @@ export default {
           disabled: false,
         },
         {
-          type: 'text',
-          long: 'long',
+          type: 'Textfield',
           title: '内容简介',
           code: 'Descr',
           placeholder: '请输入描述',
           rule: [{ required: true, message: '必填项不能为空！' }],
           iVal: '',
+          display: true,
           disabled: false,
         },
         {
@@ -120,7 +119,8 @@ export default {
         },
 
         {
-          type: 'Submitbtn',
+          type: 'buttonbtn',
+          long: 'long',
           display: true,
           disabled: false,
         },
@@ -131,7 +131,7 @@ export default {
     FormChang(val, type) {
       console.log(val, type);
       this.dList.forEach((item) => {
-        //   //重置富文本编辑器默认内容
+        //重置富文本编辑器默认内容
         if (item.type == 'Markdown') {
           item.iVal = '';
         }
@@ -141,9 +141,19 @@ export default {
         val.date.format('YYYY-MM-DD'); //整理日期格式;
         this.$api.ArticleMarkdownsave(val).then((res) => {
           console.log(res);
+          if (res.code == 200) {
+            this.$message.success(res.msg, 2);
+          }
         });
       }
     },
+  },
+  mounted() {
+    if (localStorage.getItem('ArticleContent') != '') {
+      console.log(JSON.parse(localStorage.getItem('ArticleContent')));
+    } else {
+      return false;
+    }
   },
 };
 </script>

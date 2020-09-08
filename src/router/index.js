@@ -4,8 +4,7 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     redirect: "/home/index"
   },
@@ -38,6 +37,13 @@ const routes = [
     }
   },
   {
+    path: "/pageshow/:id",
+    name: 'pageshow',
+    component: () => {
+      return import('@/view/pageshow/index.vue')
+    }
+  },
+  {
     path: "/home/404",
     name: "404",
     // redirect: "/404",
@@ -63,7 +69,9 @@ VueRouter.prototype.push = function push(location) {
 const createRouter = () =>
   new VueRouter({
     mode: "history",
-    scrollBehavior: () => ({ y: 0 }),
+    scrollBehavior: () => ({
+      y: 0
+    }),
     routes: routes
   });
 

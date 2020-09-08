@@ -4,18 +4,31 @@ import router from "./router";
 import store from "./store";
 import api from "./http/index"; //引入封装的axios
 
-import { resetRouter } from "@/router/index.js"; //重置路由表方法
-import { concatrouter } from "@/router/concatrouter"; //生成路由表方法
+import {
+  resetRouter
+} from "@/router/index.js"; //重置路由表方法
+import {
+  concatrouter
+} from "@/router/concatrouter"; //生成路由表方法
 import Loading from "./lib/loading/index"; //引入lodaing
 import NProgress from "nprogress"; // 引入进度条组件及css
 import "nprogress/nprogress.css";
 
-import VueContextMenu from '@xunlei/vue-context-menu'
+import VueParticles from 'vue-particles' //引入星空背景
+Vue.use(VueParticles)
 
-Vue.use(VueContextMenu)
+// import 'quill/dist/quill.core.css'
+// import 'quill/dist/quill.snow.css'
+// import 'quill/dist/quill.bubble.css'
+
+// import "mavon-editor/dist/css/index.css";
 
 NProgress.inc(0.2);
-NProgress.configure({ easing: "ease", speed: 200, showSpinner: false });
+NProgress.configure({
+  easing: "ease",
+  speed: 200,
+  showSpinner: false
+});
 Vue.use(NProgress);
 // 按需引入antd
 import {
@@ -74,7 +87,7 @@ Vue.prototype.$notification = notification; //全局注册message
 
 Vue.config.productionTip = false;
 //注册全局钩子用来拦截登陆导航
-router.beforeEach(function(to, from, next) {
+router.beforeEach(function (to, from, next) {
   NProgress.start();
   // console.log(localStorage.getItem("lockpsd"));
   if (!localStorage.getItem("token")) {
@@ -91,7 +104,10 @@ router.beforeEach(function(to, from, next) {
         store.state.nav.navlist = concatrouter(); //添加到store中
         resetRouter(); //重置路由
         router.addRoutes(concatrouter()); //添加新的路由表
-        next({ ...to, replace: true });
+        next({
+          ...to,
+          replace: true
+        });
         NProgress.done();
       } else {
         next();

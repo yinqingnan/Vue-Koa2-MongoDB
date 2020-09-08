@@ -10,7 +10,32 @@
           v-for="(item, index) in dList"
           :key="index"
         >
-          <!-- 文本 -->
+          <!-- 文本域 -->
+          <a-form-item
+            class="tex_textarea"
+            :class="item.cName"
+            :label="item.title"
+            :label-col="labelCol"
+            :wrapperCol="wrapperCol"
+            v-if="item.type == 'Textfield'"
+            style="margin-left:-10px;margin-right:0"
+            allowClear
+          >
+            <a-textarea
+              style="display: flex;height:120px !important;overflow-y:auto;resize: none;"
+              allowClear
+              v-decorator="[
+                item.code,
+                {
+                  initialValue: item.iVal,
+                  rules: item.rule,
+                },
+              ]"
+              :placeholder="item.placeholder"
+              :autoSize="{ minRows: 3, maxRows: 3 }"
+            />
+          </a-form-item>
+          <!-- 文本输入框-->
           <a-form-item
             autocomplete="off"
             :disabled="item.disabled"
@@ -292,32 +317,9 @@
             <a-button type="primary" html-type="submit">搜索</a-button>
             <a-button @click="handleReset">重置</a-button>
           </a-form-item> -->
-          <a-form-item
-            class="tex_textarea"
-            :class="item.cName"
-            :label="item.title"
-            :label-col="labelCol"
-            :wrapperCol="wrapperCol"
-            v-if="item.type == 'text'"
-            style="margin-left:-10px;margin-right:0"
-            allowClear
-          >
-            <a-textarea
-              style="display: flex;height:120px !important;overflow-y:auto;resize: none;"
-              allowClear
-              v-decorator="[
-                item.code,
-                {
-                  initialValue: item.iVal,
-                  rules: item.rule,
-                },
-              ]"
-              :placeholder="item.placeholder"
-              :autoSize="{ minRows: 3, maxRows: 3 }"
-            />
-          </a-form-item>
-          <!-- 底部按钮 -->
-          <a-form-item class="longBox" v-if="item.type == 'Submitbtn'">
+
+          <!-- 按钮 -->
+          <a-form-item class="longBox" v-if="item.type == 'buttonbtn'">
             <a-button @click="handleReset" style="margin-right:10px"
               >取消</a-button
             >
@@ -325,6 +327,7 @@
           </a-form-item>
         </a-col>
         <!-- 文本域 -->
+        <a-col> </a-col>
       </a-row>
     </a-form>
   </div>

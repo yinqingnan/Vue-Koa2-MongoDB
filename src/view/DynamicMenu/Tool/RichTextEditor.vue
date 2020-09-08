@@ -16,7 +16,6 @@ import Form from '@/components/form/index';
 export default {
   components: {
     Form,
-    // Editor
   },
   data() {
     return {
@@ -89,13 +88,14 @@ export default {
           disabled: false,
         },
         {
-          type: 'text',
+          type: 'Textfield',
           long: 'long',
           title: '内容简介',
           code: 'Descr',
           placeholder: '请输入描述',
           rule: [{ required: true, message: '必填项不能为空！' }],
           iVal: '',
+          display: true,
           disabled: false,
         },
         {
@@ -108,15 +108,22 @@ export default {
           display: true,
           disabled: false,
         },
-
         {
-          type: 'Submitbtn',
+          type: 'buttonbtn',
+          long: 'long',
+          display: true,
           disabled: false,
         },
       ],
     };
   },
-  mounted() {},
+  mounted() {
+    if (localStorage.getItem('ArticleContent') != '') {
+      console.log(JSON.parse(localStorage.getItem('ArticleContent')));
+    } else {
+      return false;
+    }
+  },
   methods: {
     FormChang(val, type) {
       // console.log(val, type);

@@ -30,7 +30,6 @@ export default {
   .layoutcontent::-webkit-scrollbar {
     width: 4px !important;
     height: 1px !important;
-     cursor: pointer;
   }
   .layoutcontent::-webkit-scrollbar-thumb:horizontal:hover {
     background-color: #000 !important;
