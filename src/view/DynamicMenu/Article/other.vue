@@ -1,38 +1,39 @@
 <template>
   <div>
     <!-- 常用知识点积累 -->
-    <div class="box">
+    <div class="boxx">
       <a>常用知识点积累</a>
-    </div>
-    <ul class="contnet" v-if="list.length">
-      <li
-        v-for="(item, index) in list"
-        :key="index"
-        class="list"
-        @contextmenu.prevent="show(item, $event)"
-        @click="Primary(item)"
-      >
-        <div
-          :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }"
-          class="contnet"
+      <ul class="contnet" v-if="list.length">
+        <li
+          v-for="(item, index) in list"
+          :key="index"
+          class="list"
+          @contextmenu.prevent="show(item, $event)"
+          @click="Primary(item)"
         >
-          <!-- 列表内容展示 -->
-          <h2 class="tag">
-            {{ item.tag }}
-          </h2>
-          <!-- 蒙版层-->
-          <div class="mengban"></div>
-        </div>
-        <div class="textregion">
-          <h3 :title="item.title">{{ item.title }}</h3>
-          <p :title="item.Descr">{{ item.Descr }}</p>
-        </div>
-      </li>
-    </ul>
-    <div v-else style="text-align: center;">
-      <img src="../../../assets/gif/timg.gif" alt="" />
-      <a style="font-size:30px">数据暂无收录</a>
+          <div
+            :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }"
+            class="contnet"
+          >
+            <!-- 列表内容展示 -->
+            <h2 class="tag">
+              {{ item.tag }}
+            </h2>
+            <!-- 蒙版层-->
+            <div class="mengban"></div>
+          </div>
+          <div class="textregion">
+            <h3 :title="item.title">{{ item.title }}</h3>
+            <p :title="item.Descr">{{ item.Descr }}</p>
+          </div>
+        </li>
+      </ul>
+      <div v-else style="text-align: center;">
+        <img src="../../../assets/gif/timg.gif" alt="" />
+        <a style="font-size:30px">数据暂无收录</a>
+      </div>
     </div>
+
     <div v-show="menuVisible">
       <ul id="menu" class="menu" ref="menu">
         <li class="menu_item" @click="see">
@@ -133,7 +134,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.box {
+.boxx {
   a {
     font-size: 18px;
     line-height: 30px;

@@ -7,6 +7,8 @@ const user = db.get("user"); //选择用户列表
 const adminlist = db.get("AdminNav"); //admin用户列表
 const OrdinaryNav = db.get("OrdinaryNav"); //普通admin用户列表
 const token = require("../token/createToken"); //引入生成token的方法
+const email = require('../lib/sendEmail'); //引入email封装好的函数
+const check = {} //声明一个对象缓存邮箱和验证码，留着
 
 router.prefix("/api"); // 设置当前的请求前缀
 
@@ -20,7 +22,7 @@ router.get("/login1", function (ctx, e) {
     name
   };
 });
-var CurrentName    //当前登录的用户名称
+var CurrentName //当前登录的用户名称
 // post请求接收参数  post请求不能直接在页面上测试
 // 登陆
 router.post("/login", async ctx => {
@@ -83,9 +85,9 @@ router.post("/register", async ctx => {
   let userName = postParam.userName;
   let Vcode = postParam.Vcode;
   let psd = postParam.passwordOne;
-  if (Vcode !== verification) {
+  if (Vcode !== code) {
     ctx.body = {
-      code: 500,
+      code: '500',
       msg: "验证码不正确"
     };
   } else {
@@ -95,19 +97,21 @@ router.post("/register", async ctx => {
     });
     if (obj.length != "") {
       ctx.body = {
-        code: 500,
+        code: '500',
         msg: "用户名已被注册"
       };
     } else {
       //将数据添加到数据库中
       let data = {
         user: userName,
-        psd: psd
+        psd: psd,
+        mailbox: postParam.mailbox
+
       };
       user.insert(data);
       ctx.body = {
         code: "200",
-        msg: "添加成功"
+        msg: "添加成功",
       };
     }
   }
@@ -191,12 +195,41 @@ router.post("/getnavlist2", async ctx => {
 });
 
 // 修改密码
-router.post('/modifypsd',async ctx=>{
-  let postParam = ctx.request.body; // 接收的参数;
-  ctx.body={
-    code:1
+router.post('/modifypsd', async ctx => {
+  let postParam = ctx.request.body; // 接收post的参数;
+  ctx.body = {
+    code: 1
   }
 })
 
+
+var code
+router.post('/verify', async (ctx, next) => {
+  var mail = ctx.request.body.email
+  code = Math.random().toString().slice(-6) //生成随机验证码
+  check[mail] = code
+  if (!mail) {
+    return ctx.body = '参数错误' //email出错时或者为空时
+  }
+  async function timeout() {
+    return new Promise((resolve, reject) => {
+      email.sendMail(mail, code, (state) => {
+        resolve(state);
+      })
+    })
+  }
+  await timeout().then(state => {
+    if (state) {
+      return ctx.body = {
+        msg: '邮件发送成功，请注意查看'
+      }
+    } else {
+      return ctx.body = {
+        msg: '邮件发送失败'
+      }
+    }
+  })
+
+})
 
 module.exports = router;

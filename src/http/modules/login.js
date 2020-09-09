@@ -1,4 +1,7 @@
-import { get, post } from "../api";
+import {
+  get,
+  post
+} from "../api";
 
 // 登陆
 export const login = obj => post("/api/login", obj);
@@ -17,3 +20,6 @@ export const getregister = obj => post("/api/register", obj);
 
 //修改密码
 export const resetpsd = obj => post("/api/resetpsd", obj);
+
+// 获取邮箱验证请求
+export const Emailverification = obj => post('/api/verify', obj)

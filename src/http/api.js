@@ -3,7 +3,9 @@
  */
 import axios from "axios";
 // import QS from "qs";
-import { Message } from "ant-design-vue";
+import {
+  Message
+} from "ant-design-vue";
 import "ant-design-vue/lib/message/style";
 
 import Vue from "vue";
@@ -72,7 +74,7 @@ axios.interceptors.response.use(
       vm.$Loading.hide();
       if (response.data.code == 1002) {
         clearTimeout(iTime);
-        iTime = setTimeout(function() {
+        iTime = setTimeout(function () {
           Message.warning(response.data.msg);
 
           return false;
@@ -98,13 +100,13 @@ axios.interceptors.response.use(
           //   forbidClick: true
           // });
           break;
-        // 其他错误，直接抛出错误提示
+          // 其他错误，直接抛出错误提示
         default:
-        // Toast({
-        //   message: error.response.data.message,
-        //   duration: 1500,
-        //   forbidClick: true
-        // });
+          // Toast({
+          //   message: error.response.data.message,
+          //   duration: 1500,
+          //   forbidClick: true
+          // });
       }
       return Promise.reject(error.response);
     }

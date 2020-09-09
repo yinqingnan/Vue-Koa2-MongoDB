@@ -23,9 +23,9 @@
                 {
                   rules: [
                     { required: true, message: '请输入账户!' },
-                    { min: 2, max: 20, message: '长度在 2 到 20 个字符' }
-                  ]
-                }
+                    { min: 2, max: 20, message: '长度在 2 到 20 个字符' },
+                  ],
+                },
               ]"
               placeholder="用户名"
               allow-clear
@@ -46,8 +46,8 @@
               v-decorator="[
                 'password',
                 {
-                  rules: [{ required: true, message: '请输入密码!' }]
-                }
+                  rules: [{ required: true, message: '请输入密码!' }],
+                },
               ]"
               type="password"
               placeholder="密码"
@@ -90,34 +90,34 @@
   </div>
 </template>
 <script>
-import BGT from "@/components/3DBG/index";
-import resetpassword from "@/components/resetpassword/index";
-import { createNamespacedHelpers } from "vuex";
-const { mapMutations } = createNamespacedHelpers("nav");
-import router from "@/router";
+import BGT from '@/components/3DBG/index';
+import resetpassword from '@/components/resetpassword/index';
+import { createNamespacedHelpers } from 'vuex';
+const { mapMutations } = createNamespacedHelpers('nav');
+import router from '@/router';
 // import routerlist from "@/router/routerlist";
-import { resetRouter } from "@/router/index";
-import { concatrouter } from "@/router/concatrouter"; //生成路由表方法
-import registerbox from "./register";
+import { resetRouter } from '@/router/index';
+import { concatrouter } from '@/router/concatrouter'; //生成路由表方法
+import registerbox from './register';
 export default {
   components: {
     BGT,
     registerbox,
-    resetpassword
+    resetpassword,
   },
   data() {
     return {
       form: null,
-      show: true
+      show: true,
     };
   },
   methods: {
     aClick(type) {
-      if (type == "登陆") {
+      if (type == '登陆') {
         // return false;
-      } else if (type == "注册") {
+      } else if (type == '注册') {
         this.$refs.registerbox.showModal();
-      } else if (type == "忘记密码") {
+      } else if (type == '忘记密码') {
         this.$refs.resetpsd.showModal();
       }
       return false;
@@ -128,40 +128,50 @@ export default {
         if (!err) {
           let psd = values.password;
           let user = values.userName;
-          this.$api.login({ password: psd, userName: user }).then(res => {
-            if (res.code === 200) {
-              localStorage.setItem("token", res.token);
-              localStorage.setItem("nav", res.jurisdiction);
-              localStorage.setItem("navcode", 1);
-              localStorage.setItem("openKeys", 1);
-              this.addnav(res.jurisdiction);
-              this.$message.info("登陆成功", 2);
-              this.show = false;
-              this.$api.getnavlist({ state: res.jurisdiction }).then(res => {
-                localStorage.setItem("navlist", JSON.stringify(res.data));
-                this.addnavlist(concatrouter());
-                resetRouter(); //重置路由
-                router.addRoutes(concatrouter()); //添加新的路由表
-                this.$router.push({ path: "/home/index" });
-              }).catch(()=>{console.log(222)});
-            } else {
-              this.$message.error(res.msg);
-            }
-          }).catch(()=>{console.log(111)});
+          this.$api
+            .login({ password: psd, userName: user })
+            .then((res) => {
+              if (res.code === 200) {
+                localStorage.setItem('token', res.token);
+                localStorage.setItem('nav', res.jurisdiction);
+                localStorage.setItem('navcode', 1);
+                localStorage.setItem('openKeys', 1);
+                this.addnav(res.jurisdiction);
+                this.$message.info('登陆成功', 2);
+                this.show = false;
+                this.$api
+                  .getnavlist({ state: res.jurisdiction })
+                  .then((res) => {
+                    localStorage.setItem('navlist', JSON.stringify(res.data));
+                    this.addnavlist(concatrouter());
+                    resetRouter(); //重置路由
+                    router.addRoutes(concatrouter()); //添加新的路由表
+                    this.$router.push({ path: '/home/index' });
+                  })
+                  .catch(() => {
+                    console.log(222);
+                  });
+              } else {
+                this.$message.error(res.msg);
+              }
+            })
+            .catch(() => {
+              console.log(111);
+            });
         }
       });
     },
     ...mapMutations({
-      addnav: "addnav",
-      addnavlist: "addnavlist"
-    })
+      addnav: 'addnav',
+      addnavlist: 'addnavlist',
+    }),
   },
   mounted() {
-    this.form = this.$form.createForm(this, { name: "normal_login" });
+    this.form = this.$form.createForm(this, { name: 'normal_login' });
   },
   created() {
     this.show = true;
-  }
+  },
 };
 </script>
 <style lang="less" scope>
@@ -186,8 +196,8 @@ export default {
     position: absolute;
     display: block;
     width: 410px;
-    top: calc(~"50% - 200px");
-    left: calc(~"50% - 200px");
+    top: calc(~'50% - 200px');
+    left: calc(~'50% - 200px');
     height: 400px;
     h1 {
       font-size: 18px;

@@ -27,10 +27,10 @@
                   {
                     min: 2,
                     max: 10,
-                    message: '请输入完整用户名!'
-                  }
-                ]
-              }
+                    message: '请输入完整用户名!',
+                  },
+                ],
+              },
             ]"
           ></a-input>
         </a-form-item>
@@ -46,9 +46,9 @@
               {
                 rules: [
                   { required: true, message: ' ' },
-                  { validator: phoneCheck }
-                ]
-              }
+                  { validator: phoneCheck },
+                ],
+              },
             ]"
           ></a-input>
         </a-form-item>
@@ -65,10 +65,10 @@
                 rules: [
                   {
                     required: true,
-                    message: '必填项不能为空'
-                  }
-                ]
-              }
+                    message: '必填项不能为空',
+                  },
+                ],
+              },
             ]"
             placeholder="输入验证码"
           ></a-input>
@@ -87,9 +87,9 @@
                 rules: [
                   { required: true, message: '请输入密码!' },
                   { min: 6, message: '请输入至少6位密码,区分大小写!' },
-                  { validator: validatePass }
-                ]
-              }
+                  { validator: validatePass },
+                ],
+              },
             ]"
             type="password"
             placeholder="至少6位密码，区分大小写"
@@ -113,11 +113,11 @@
                   {
                     min: 6,
                     max: 20,
-                    message: '请输入至少6位-最多20位,区分大小写!'
+                    message: '请输入至少6位-最多20位,区分大小写!',
                   },
-                  { validator: validatePass2 }
-                ]
-              }
+                  { validator: validatePass2 },
+                ],
+              },
             ]"
             name="passwordTwo"
             type="password"
@@ -126,7 +126,6 @@
             <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
           </a-input>
         </a-form-item>
-
       </a-form>
     </a-modal>
   </div>
@@ -140,20 +139,20 @@ export default {
       num: 0,
       Disabled: true,
       interval: null,
-      form: null
+      form: null,
     };
   },
   computed: {
     btntext() {
-      return this.num !== 0 ? `${this.num}秒后再次获取` : "获取验证码";
-    }
+      return this.num !== 0 ? `${this.num}秒后再次获取` : '获取验证码';
+    },
   },
   methods: {
     phoneCheck(rule, value, callback) {
       //验证手机号码
       let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
       if (!reg.test(value)) {
-        callback("请输入正确的11位手机号码");
+        callback('请输入正确的11位手机号码');
       } else {
         this.Disabled = false;
         callback();
@@ -167,7 +166,7 @@ export default {
     validatePass2(rule, value, callback) {
       //效验两次密码是否相同
       if (this.password && this.password !== value) {
-        callback("两次输入的密码不一致");
+        callback('两次输入的密码不一致');
       } else {
         callback();
       }
@@ -184,11 +183,11 @@ export default {
           setTimeout(() => {
             this.visible = false;
             this.loading = false;
-            this.$api.resetpsd(values).then(res => {
+            this.$api.resetpsd(values).then((res) => {
               if (res.code == 200) {
                 this.$message.success(res.msg);
                 this.form.resetFields();
-                this.$emit('modifypsd',1,"modifypsd")
+                this.$emit('modifypsd', 1, 'modifypsd');
               } else {
                 this.$message.error(res.msg);
               }
@@ -207,9 +206,9 @@ export default {
     getV() {
       // 获取完成的手机号码
       let iphone =
-        "+" +
-        this.form.getFieldValue("prefix") +
-        this.form.getFieldValue("phone");
+        '+' +
+        this.form.getFieldValue('prefix') +
+        this.form.getFieldValue('phone');
       this.Disabled = true;
       this.num = 5;
       this.getCode(iphone); //60秒过倒计时过后才能调用的事件
@@ -222,23 +221,23 @@ export default {
       }, 1000);
     },
     getCode(iphone) {
-      this.$message.success("短信发送成功");
+      this.$message.success('短信发送成功');
       //请求服务器的随机数据
-      this.$api.getverification({ iphone: iphone }).then(res => {
+      this.$api.getverification({ iphone: iphone }).then((res) => {
         // console.log(res);
         this.$notification.open({
-          message: "短信服务",
+          message: '短信服务',
           //   desciption: `[你的爸爸]您正在获取验证，验证码${res},请在10分钟内按页面提示提交验证码，切勿将验证码泄漏于他人`
           description: `[你的爸爸]您正在获取验证，验证码   ${res}   ,请在10分钟内按页面提示提交验证码，切勿将验证码泄漏于他人`,
           icon: <a-icon type="smile" style="color: #108ee9" />,
-          duration: 10
+          duration: 10,
         });
       });
-    }
+    },
   },
   mounted() {
-    this.form = this.$form.createForm(this, { name: "normal_login" });
-  }
+    this.form = this.$form.createForm(this, { name: 'normal_login' });
+  },
 };
 </script>
 <style lang="less" scope>

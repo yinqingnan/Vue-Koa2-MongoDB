@@ -64,7 +64,7 @@
           </a-dropdown>
         </a-tooltip>
       </div>
-      <div class="language">
+      <!-- <div class="language">
         <a-tooltip>
           <template slot="title">
             国际化
@@ -88,7 +88,6 @@
             </i>
 
             <a-menu slot="overlay" @click="languageClick">
-              <!-- <a-icon slot="icon" type="user" /> -->
               <a-menu-item key="1">
                 US English
               </a-menu-item>
@@ -101,7 +100,7 @@
             </a-menu>
           </a-dropdown>
         </a-tooltip>
-      </div>
+      </div> -->
     </div>
     <div class="lock">
       <a-modal v-model="visible" title="输入锁屏密码" on-ok="handleOk">

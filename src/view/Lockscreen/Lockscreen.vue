@@ -31,40 +31,57 @@
 export default {
   data() {
     return {
-      value: "",
-      currentrouter: localStorage.getItem("currentrouter"),
-      lockpsd: localStorage.getItem("lockpsd")
+      value: '',
+      currentrouter: localStorage.getItem('currentrouter'),
+      lockpsd: localStorage.getItem('lockpsd'),
+      errorcount: 0,
     };
   },
   mounted() {},
   methods: {
     login() {
       if (this.value === this.lockpsd) {
-        localStorage.setItem("lockpsd", "");
+        localStorage.setItem('lockpsd', '');
         this.$router.push({ path: this.currentrouter });
       } else if (this.value.length == 0) {
-        this.$message.error("密码不能为空", 2);
+        this.$message.error('密码不能为空', 2);
       } else {
-        this.$message.error("密码错误", 2);
+        this.errorcount++;
+        this.$message.error(`密码错误${this.errorcount}次`, 2);
       }
     },
 
     confirm() {
-      this.$message.success("返回到登陆界面");
+      this.$message.success('返回到登陆界面');
       //返回到登陆界面   清空掉所有的本地储存
-      localStorage.setItem("lockpsd", "");
-      localStorage.setItem("navlist", "");
-      localStorage.setItem("nav", "");
-      localStorage.setItem("currentrouter", "");
-      localStorage.setItem("navcode", "");
-      localStorage.setItem("token", "");
-      localStorage.setItem("openKeys", "");
-      this.$router.push({ path: "/login" });
+      localStorage.setItem('lockpsd', '');
+      localStorage.setItem('navlist', '');
+      localStorage.setItem('nav', '');
+      localStorage.setItem('currentrouter', '');
+      localStorage.setItem('navcode', '');
+      localStorage.setItem('token', '');
+      localStorage.setItem('openKeys', '');
+      this.$router.push({ path: '/login' });
     },
     cancel() {
-      this.$message.error("取消");
-    }
-  }
+      this.$message.error('取消');
+    },
+  },
+  watch: {
+    errorcount(val) {
+      if (val == 6) {
+        this.$message.error('错误次数上限，返回登陆界面');
+        localStorage.setItem('lockpsd', '');
+        localStorage.setItem('navlist', '');
+        localStorage.setItem('nav', '');
+        localStorage.setItem('currentrouter', '');
+        localStorage.setItem('navcode', '');
+        localStorage.setItem('token', '');
+        localStorage.setItem('openKeys', '');
+        this.$router.push({ path: '/login' });
+      }
+    },
+  },
 };
 </script>
 <style lang="less" scope>
@@ -89,7 +106,7 @@ export default {
     .tx {
       width: 100px;
       height: 100px;
-      background-image: url("../../assets/img/qisi.jpg");
+      background-image: url('../../assets/img/qisi.jpg');
       background-size: 100% 100%;
       border-radius: 50%;
       position: absolute;

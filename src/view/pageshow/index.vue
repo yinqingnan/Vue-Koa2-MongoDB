@@ -30,11 +30,12 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data() {
     return {
-      articledata: [],
+      articledata: Array,
       text: '',
       show: true,
     };
@@ -42,7 +43,6 @@ export default {
   methods: {
     getdata(id) {
       this.$api.pageshow({ id: id }).then((res) => {
-        // console.log(res.data[0]);
         this.articledata = res.data[0];
         if (res.data[0].Markdown != '') {
           this.text = res.data[0].Markdown;
@@ -51,7 +51,6 @@ export default {
           this.text = res.data[0].content;
           this.show = true;
         }
-        console.log(this.text);
       });
     },
   },
@@ -123,7 +122,7 @@ export default {
   overflow: hidden;
 }
 .textregion >>> ._2Uzcx_ pre {
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 </style>
 
@@ -153,7 +152,7 @@ html {
   background: rgba(255, 255, 255, 0.1);
   position: absolute;
   z-index: 10;
-  padding: 0 170px;
+  padding: 0 210px;
   top: 0;
   overflow-y: auto;
   > h2 {
@@ -175,7 +174,7 @@ html {
 }
 </style>
 
-<style>
+<style scoped>
 h1,
 h2,
 h3,

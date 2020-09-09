@@ -22,10 +22,10 @@
                       {
                         min: 2,
                         max: 10,
-                        message: '请输入至少2位!'
-                      }
-                    ]
-                  }
+                        message: '请输入至少2位!',
+                      },
+                    ],
+                  },
                 ]"
                 placeholder="用户名称"
               >
@@ -45,9 +45,9 @@
                     rules: [
                       { required: true, message: '请输入密码!' },
                       { min: 6, message: '请输入至少6位密码,区分大小写!' },
-                      { validator: validatePass }
-                    ]
-                  }
+                      { validator: validatePass },
+                    ],
+                  },
                 ]"
                 type="password"
                 placeholder="至少6位密码，区分大小写"
@@ -71,11 +71,11 @@
                       {
                         min: 6,
                         max: 20,
-                        message: '请输入至少6位-最多20位,区分大小写!'
+                        message: '请输入至少6位-最多20位,区分大小写!',
                       },
-                      { validator: validatePass2 }
-                    ]
-                  }
+                      { validator: validatePass2 },
+                    ],
+                  },
                 ]"
                 name="passwordTwo"
                 type="password"
@@ -88,7 +88,7 @@
                 />
               </a-input>
             </a-form-item>
-            <a-form-item
+            <!-- <a-form-item
               :label-col="{ span: 6 }"
               :wrapper-col="{ span: 24 }"
               class="layout"
@@ -123,6 +123,29 @@
                   </a-select-option>
                 </a-select>
               </a-input>
+            </a-form-item> -->
+            <a-form-item
+              :label-col="{ span: 6 }"
+              :wrapper-col="{ span: 24 }"
+              class="layout"
+            >
+              <a-input
+                v-decorator="[
+                  'mailbox',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: '邮箱地址不能为空',
+                      },
+                      { validator: mailboxCheck },
+                    ],
+                  },
+                ]"
+                placeholder="输入正确的邮箱地址"
+                style="width: 100%"
+              >
+              </a-input>
             </a-form-item>
             <a-form-item class="vcode">
               <a-input
@@ -132,14 +155,19 @@
                     rules: [
                       {
                         required: true,
-                        message: '必填项不能为空'
-                      }
-                    ]
-                  }
+                        message: '必填项不能为空',
+                      },
+                    ],
+                  },
                 ]"
                 placeholder="输入验证码"
               ></a-input>
-              <a-button @click="getV" :disabled="Disabled">{{
+              <!-- 获取手机验证码 -->
+              <!-- <a-button @click="getV" :disabled="Disabled">{{
+                btntext
+              }}</a-button> -->
+              <!-- 获取邮箱验证码功能 -->
+              <a-button @click="getmailbox" :disabled="Disabled">{{
                 btntext
               }}</a-button>
             </a-form-item>
@@ -170,21 +198,21 @@ export default {
     return {
       form: null,
       show: true,
-      text: "获取验证码",
+      text: '获取验证码',
       num: 0,
       Disabled: true,
       interval: null,
-      visible: false
+      visible: false,
     };
   },
   computed: {
     btntext() {
-      return this.num !== 0 ? `${this.num}秒后再次获取` : "获取验证码";
-    }
+      return this.num !== 0 ? `${this.num}秒后再次获取` : '获取验证码';
+    },
   },
   methods: {
     aClick(type) {
-      if (type == "使用已有账户登录") {
+      if (type == '使用已有账户登录') {
         this.handleOk();
       }
       return false;
@@ -194,11 +222,10 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          this.$api.getregister(values).then(res => {
-            console.log(res);
+          console.log(values);
+          this.$api.getregister(values).then((res) => {
             if (res.code == 200) {
-              this.$message.success(res.msg + "5秒后返回登陆页面");
-
+              this.$message.success(res.msg + '5秒后返回登陆页面');
               this.form.resetFields();
               setTimeout(() => {
                 this.handleOk();
@@ -224,7 +251,7 @@ export default {
     validatePass2(rule, value, callback) {
       //效验两次密码是否相同
       if (this.password && this.password !== value) {
-        callback("两次输入的密码不一致");
+        callback('两次输入的密码不一致');
       } else {
         callback();
       }
@@ -233,7 +260,17 @@ export default {
       //验证手机号码
       let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
       if (!reg.test(value)) {
-        callback("请输入正确的11位手机号码");
+        callback('请输入正确的11位手机号码');
+      } else {
+        this.Disabled = false;
+        callback();
+      }
+    },
+    // 邮箱验证
+    mailboxCheck(rule, value, callback) {
+      let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+      if (!reg.test(value)) {
+        callback('请输入正确的邮箱地址');
       } else {
         this.Disabled = false;
         callback();
@@ -243,9 +280,9 @@ export default {
     getV() {
       // 获取完成的手机号码
       let iphone =
-        "+" +
-        this.form.getFieldValue("prefix") +
-        this.form.getFieldValue("phone");
+        '+' +
+        this.form.getFieldValue('prefix') +
+        this.form.getFieldValue('phone');
       this.Disabled = true;
       this.num = 5;
       this.getCode(iphone); //60秒过倒计时过后才能调用的事件
@@ -257,17 +294,39 @@ export default {
         }
       }, 1000);
     },
+
+    getmailbox() {
+      // 获取邮箱验证码
+      this.Disabled = true;
+      this.num = 60;
+      // 获取到邮箱地址
+      let mailbox = this.form.getFieldValue('mailbox');
+      this.mailboxV(mailbox); //60秒过倒计时过后才能调用的事件
+      this.interval = setInterval(() => {
+        this.num--;
+        if (this.num === 0) {
+          clearInterval(this.interval);
+          this.Disabled = false;
+        }
+      }, 1000);
+    },
+    mailboxV(mailboxV) {
+      // 发送邮箱请求验证
+      this.$api.Emailverification({ email: mailboxV }).then((res) => {
+        this.$message.info(res.msg);
+      });
+    },
     getCode(iphone) {
-      this.$message.success("短信发送成功");
+      // 发送手机验证码请求
+      this.$message.success('短信发送成功');
       //请求服务器的随机数据
-      this.$api.getverification({ iphone: iphone }).then(res => {
+      this.$api.getverification({ iphone: iphone }).then((res) => {
         console.log(res);
         this.$notification.open({
-          message: "短信服务",
-          //   desciption: `[你的爸爸]您正在获取验证，验证码${res},请在10分钟内按页面提示提交验证码，切勿将验证码泄漏于他人`
+          message: '短信服务',
           description: `[你的爸爸]您正在获取验证，验证码   ${res}   ,请在10分钟内按页面提示提交验证码，切勿将验证码泄漏于他人`,
           icon: <a-icon type="smile" style="color: #108ee9" />,
-          duration: 10
+          duration: 10,
         });
       });
     },
@@ -276,14 +335,14 @@ export default {
     },
     handleOk(e) {
       this.visible = false;
-    }
+    },
   },
   mounted() {
-    this.form = this.$form.createForm(this, { name: "normal_login" });
+    this.form = this.$form.createForm(this, { name: 'normal_login' });
   },
   created() {
     this.show = true;
-  }
+  },
 };
 </script>
 <style lang="less" scope>
@@ -311,8 +370,8 @@ export default {
     position: absolute;
     display: block;
     width: 410px;
-    top: calc(~"50% - 200px");
-    left: calc(~"50% - 200px");
+    top: calc(~'50% - 200px');
+    left: calc(~'50% - 200px');
     height: 400px;
     .ant-form-item {
       display: flex !important;

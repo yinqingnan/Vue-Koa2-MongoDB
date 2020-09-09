@@ -25,11 +25,15 @@ const secret = "serect"; //密钥，不能丢
 
 /* 路由权限控制 */
 app.use(
-  jwtKoa({ secret: secret }).unless({
+  jwtKoa({
+    secret: secret
+  }).unless({
     // 设置接口，可以不需要认证访问
     path: [
       /^\/images\/Background/, //配置访问图片不需要token
       /^\/uploadimg/,
+      /^\/string/,
+      /^\/api\/verify/,
       /^\/api\/login/,
       /^\/api\/register/,
       /^\/api\/getlist/,

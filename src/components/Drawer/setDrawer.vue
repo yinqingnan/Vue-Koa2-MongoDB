@@ -104,11 +104,19 @@
 
         <div class="header">
           <h1>固定Header</h1>
-          <a-switch default-checked @change="onChangeheader" />
+          <a-switch
+            default-checked
+            @change="onChangeheader"
+            style="margin:15px 0 0 20px"
+          />
         </div>
         <div class="header">
           <h1>顶部菜单显示</h1>
-          <a-switch default-checked @change="onChangeheadershow" />
+          <a-switch
+            default-checked
+            @change="onChangeheadershow"
+            style="margin:15px 0 0 20px"
+          />
         </div>
       </div>
     </a-drawer>
@@ -116,8 +124,8 @@
 </template>
 <script>
 // createNamespacedHelpers
-import { createNamespacedHelpers } from "vuex";
-const { mapMutations } = createNamespacedHelpers("systemconfig");
+import { createNamespacedHelpers } from 'vuex';
+const { mapMutations } = createNamespacedHelpers('systemconfig');
 export default {
   data() {
     return {
@@ -127,81 +135,81 @@ export default {
       navshow: 0,
       stylelist: [
         {
-          path: require("../../assets/svgimg/Coolblack.png")
+          path: require('../../assets/svgimg/Coolblack.png'),
         },
         {
-          path: require("../../assets/svgimg/heightlink.png")
-        }
+          path: require('../../assets/svgimg/heightlink.png'),
+        },
       ],
       navlist: [
-        { path: require("../../assets/svgimg/left.png") },
-        { path: require("../../assets/svgimg/top.png") }
+        { path: require('../../assets/svgimg/left.png') },
+        { path: require('../../assets/svgimg/top.png') },
       ],
       colorarr: [
         {
-          color: "#188efb",
-          name: "佛晓蓝(默认)"
+          color: '#188efb',
+          name: '佛晓蓝(默认)',
         },
         {
-          color: "#f5222d",
-          name: "薄暮"
+          color: '#f5222d',
+          name: '薄暮',
         },
         {
-          color: "#fa541c",
-          name: "火山"
+          color: '#fa541c',
+          name: '火山',
         },
         {
-          color: "#f6aa14",
-          name: "日暮"
+          color: '#f6aa14',
+          name: '日暮',
         },
         {
-          color: "#13bfbf",
-          name: "明青"
+          color: '#13bfbf',
+          name: '明青',
         },
         {
-          color: "#51c11a",
-          name: "极光绿"
+          color: '#51c11a',
+          name: '极光绿',
         },
         {
-          color: "#2e53e8",
-          name: "极客蓝"
+          color: '#2e53e8',
+          name: '极客蓝',
         },
         {
-          color: "#6e2dca",
-          name: "酱紫"
-        }
-      ]
+          color: '#6e2dca',
+          name: '酱紫',
+        },
+      ],
     };
   },
   methods: {
     ...mapMutations({
-      changenav: "changenav",
-      changenavcloor: "changenavcloor"
+      changenav: 'changenav',
+      changenavcloor: 'changenavcloor',
     }),
     afterVisibleChange(val) {
-      console.log("visible", val);
+      console.log('visible', val);
     },
     showDrawer() {
       this.visible = true;
     },
     onClose() {
-      this.$emit("close", 111);
+      this.$emit('close', 111);
       this.visible = false;
     },
     onChangeheader(checked) {
       console.log(`a-switch to ${checked}`);
     },
     onChangeheadershow(checked) {
-      this.$emit("close", "header", checked);
+      this.$emit('close', 'header', checked);
     },
     stylesetting(index) {
       if (this.navshow == 1) {
-        this.$message.warn("请先切换为左侧导航模式", 2);
+        this.$message.warn('请先切换为左侧导航模式', 2);
       } else {
-        this.$message.success("正在修改菜单主题风格", 2);
+        this.$message.success('正在修改菜单主题风格', 2);
         setTimeout(() => {
           this.visible = false;
-          this.$emit("close", 111);
+          this.$emit('close', 111);
           this.changenavcloor(index);
         }, 2000);
 
@@ -209,10 +217,10 @@ export default {
       }
     },
     navbtn(index) {
-      this.$message.success("正在切换导航位置", 2);
+      this.$message.success('正在切换导航位置', 2);
       setTimeout(() => {
         this.visible = false;
-        this.$emit("close", 111);
+        this.$emit('close', 111);
         this.changenav(index);
         this.num = 1;
       }, 2000);
@@ -221,18 +229,18 @@ export default {
     },
     cloorlist(index, color) {
       this.colorshow = index;
-      const hide = this.$message.loading("正在设置主题色", 2);
+      const hide = this.$message.loading('正在设置主题色', 2);
       setTimeout(() => {
         hide;
         window.less.modifyVars({
-          "@primary-color": color,
-          "@primary-default": color
+          '@primary-color': color,
+          '@primary-default': color,
         });
         this.visible = false;
-        this.$emit("close", 111);
+        this.$emit('close', 111);
       }, 2000);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" socpe>
